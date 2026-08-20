@@ -1,0 +1,13 @@
+# VS Code
+.vscode/
+
+# React
+portfolio-frontend/node_modules/
+portfolio-frontend/dist/
+
+# Spring Boot
+demo/target/
+
+# OS
+.DS_Store
+Thumbs.db
