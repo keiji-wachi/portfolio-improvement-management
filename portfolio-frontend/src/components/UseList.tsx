@@ -19,14 +19,17 @@ function UserList({ reloadkey, onEdit}: Props){
     const [ users, setUsers] = useState<User[]>([]);
 
     const fetchUsers = async () => {
-        const response = await fetch("http://localhost:8080/users");
+        const response = await fetch("http://localhost:8080/users",{
+            credentials: "include"
+        });
         const data = await response.json();
         setUsers(data);
     };
 
     const deleteUsers = async (id:number) =>{
         await fetch(`http://localhost:8080/users/${id}`,{
-            method: "DELETE"
+            method: "DELETE",
+            credentials: "include"
         });
 
         fetchUsers();

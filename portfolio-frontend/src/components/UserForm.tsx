@@ -12,16 +12,18 @@ function UserCreateForm({ onCreated, departments, roles }:Props){
     const [departmentId, setDepartmentId] = useState("");
     const [roleId, setRoleId] = useState("");
     const [password, setPassword] = useState("");
+    const [employeeNo, setEmployeeNo] = useState("");
 
     const userCreate = async () => {
     const response = await fetch(`http://localhost:8080/users`,{
         method:"POST",
-
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
 
         body: JSON.stringify({
+            employeeNo: employeeNo,
             name: name,
             department_id: departmentId,
             role_id: roleId,
@@ -36,6 +38,11 @@ function UserCreateForm({ onCreated, departments, roles }:Props){
     return (
         <div>
             <h2>ユーザー登録</h2>
+
+            <div>
+                <label>社員番号</label>
+                <input type="text" value={employeeNo} onChange={(e) => setEmployeeNo(e.target.value)} placeholder="社員番号"/>
+            </div>
 
             <div>
                 <label>名前</label>

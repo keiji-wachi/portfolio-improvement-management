@@ -2,8 +2,6 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +9,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Dto.CreateUserDto;
+import com.example.demo.Dto.LoginResponseDto;
 import com.example.demo.Dto.UserListDto;
 import com.example.demo.Dto.UserUpdateDto;
 import com.example.demo.Service.UserCreateService;
 import com.example.demo.Service.UserDeleteService;
 import com.example.demo.Service.UserListService;
 import com.example.demo.Service.UserUpdateService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173",allowCredentials = "true")
 public class UserController {
 
     private final UserCreateService userCreateService;
@@ -42,10 +44,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> userCreate(@RequestBody CreateUserDto dto) {
-        userCreateService.createUser(dto);
-        
-        return ResponseEntity.status(HttpStatus.CREATED).body("ユーザー登録完了");
+    public int createUser(@Valid @RequestBody CreateUserDto dto,HttpSession session) {
+        LoginResponseDto loginUser = (LoginResponseDto) session.getAttribute("loginUser");
+        return userCreateService.createUser(dto, loginUser);
     }
 
     @GetMapping

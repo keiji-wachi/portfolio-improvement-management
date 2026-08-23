@@ -16,7 +16,7 @@ function IncidentReportList(){
     const [targetMonth, setTargetMonth] = useState("2026-08");
 
     const fetchReports = async () => {
-        const response = await fetch(`http://localhost:8080/incident?targetMonth=${targetMonth}`);
+        const response = await fetch(`http://localhost:8080/incident?targetMonth=${targetMonth}`, { credentials: "include" });
 
         const data = await response.json();
         console.log(data)

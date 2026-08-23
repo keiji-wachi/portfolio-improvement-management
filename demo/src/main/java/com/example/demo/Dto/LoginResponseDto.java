@@ -2,11 +2,11 @@ package com.example.demo.Dto;
 
 public class LoginResponseDto {
     private int id;
-    private int department_id;
-    private int role_id;
+    private Integer department_id;
+    private Integer role_id;
     private Boolean success;
 
-    public LoginResponseDto(int id, int department_id, int role_id, Boolean success){
+    public LoginResponseDto(int id, Integer department_id, Integer role_id, Boolean success){
         this.id = id;
         this.department_id = department_id;
         this.role_id = role_id;
@@ -17,11 +17,11 @@ public class LoginResponseDto {
         return id;
     }
 
-    public int getDepartmentId(){
+    public Integer getDepartmentId(){
         return department_id;
     }
 
-    public int getRoleId(){
+    public Integer getRoleId(){
         return role_id;
     }
 

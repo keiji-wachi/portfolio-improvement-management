@@ -30,7 +30,7 @@ function UserUpdateForm({ user, onCreated, departments, roles }:Props){
 
     await fetch(`http://localhost:8080/users/${user.id}`,{
         method:"PUT",
-
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },

@@ -91,11 +91,11 @@ function App() {
   const [roles, setRoles] = useState<Role[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/msts/departments")
+    fetch("http://localhost:8080/msts/departments", { credentials: "include" })
     .then(res => res.json())
     .then(data => {setDepartments(data);});
 
-    fetch("http://localhost:8080/msts/roles")
+    fetch("http://localhost:8080/msts/roles", { credentials: "include" })
     .then(res => res.json())
     .then(data => {setRoles(data);});
   }, []);
