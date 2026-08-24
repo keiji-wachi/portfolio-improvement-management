@@ -19,7 +19,7 @@ function LoginForm({setLoginUser} :Props){
         },
 
         body: JSON.stringify({
-            id: loginid,
+            employeeNo: loginid,
             password: password,
         }),
     });

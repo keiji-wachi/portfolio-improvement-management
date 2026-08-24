@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Dto.CreateUserDto;
-import com.example.demo.Dto.LoginResponseDto;
+import com.example.demo.Dto.LoginUserDto;
 import com.example.demo.Dto.UserListDto;
 import com.example.demo.Dto.UserUpdateDto;
 import com.example.demo.Service.UserCreateService;
@@ -45,7 +45,7 @@ public class UserController {
 
     @PostMapping
     public int createUser(@Valid @RequestBody CreateUserDto dto,HttpSession session) {
-        LoginResponseDto loginUser = (LoginResponseDto) session.getAttribute("loginUser");
+        LoginUserDto loginUser = (LoginUserDto) session.getAttribute("loginUser");
         return userCreateService.createUser(dto, loginUser);
     }
 

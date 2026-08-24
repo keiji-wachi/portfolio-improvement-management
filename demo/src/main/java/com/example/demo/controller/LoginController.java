@@ -4,9 +4,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Dto.LoginRequestDto;
 import com.example.demo.Dto.LoginResponseDto;
+import com.example.demo.Dto.LoginUserDto;
 import com.example.demo.Service.LoginRequestService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +29,9 @@ public class LoginController {
     }
 
 @PostMapping
-public LoginResponseDto loginAuth(
-        @RequestBody LoginRequestDto dto,
-        HttpSession session) {
+public LoginResponseDto  loginAuth(@Valid @RequestBody LoginRequestDto dto,HttpSession session) {
 
-    LoginResponseDto loginUser =
-            loginRequestService.loginAuth(dto);
+    LoginResponseDto loginUser = loginRequestService.loginAuth(dto);
 
     if (loginUser.getSuccess()) {
         session.setAttribute("loginUser", loginUser);

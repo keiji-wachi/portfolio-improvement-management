@@ -1,19 +1,23 @@
 package com.example.demo.Dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class LoginRequestDto {
 
-    private int id;
+    private String employeeNo;
     private String password;
 
-    public LoginRequestDto(int id, String password){
-        this.id = id;
+    public LoginRequestDto(String employeeNo, String password){
+        this.employeeNo = employeeNo;
         this.password = password;
     }
 
-    public int getId(){
-        return id;
+    @NotBlank
+    public String getEmployeeNo(){
+        return employeeNo;
     }
 
+    @NotBlank
     public String getPassWord(){
         return password;
     }

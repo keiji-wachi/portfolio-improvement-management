@@ -4,7 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Dto.CreateUserDto;
-import com.example.demo.Dto.LoginResponseDto;
+import com.example.demo.Dto.LoginUserDto;
 import com.example.demo.Repository.CreateUserRepository;
 
 @Service
@@ -23,9 +23,7 @@ public class UserCreateService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public int createUser(
-            CreateUserDto dto,
-            LoginResponseDto loginUser) {
+    public int createUser(CreateUserDto dto,LoginUserDto loginUser) {
 
         // 未ログインなら拒否
         if (loginUser == null) {
@@ -46,7 +44,7 @@ public class UserCreateService {
             // Step 8：指導員の部署スコープ
         if (roleId == INSTRUCTOR_ROLE_ID) {
 
-            if (!loginUser.getDepartmentId().equals(dto.getDepartment_id())) {
+            if (loginUser.getDepartmentId() != (dto.getDepartment_id())) {
             throw new RuntimeException("他部署のユーザーは登録できません");
         }
             // Step 9：指導員のroleスコープ

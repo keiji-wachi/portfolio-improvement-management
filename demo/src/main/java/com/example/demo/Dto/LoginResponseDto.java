@@ -1,28 +1,34 @@
 package com.example.demo.Dto;
 
 public class LoginResponseDto {
-    private int id;
-    private Integer department_id;
-    private Integer role_id;
-    private Boolean success;
+    private Integer userId;
+    private Integer departmentId;
+    private Integer roleId;
+    private boolean firstLoginFlag;
+    private boolean success;
 
-    public LoginResponseDto(int id, Integer department_id, Integer role_id, Boolean success){
-        this.id = id;
-        this.department_id = department_id;
-        this.role_id = role_id;
+    public LoginResponseDto(Integer userId, Integer departmentId, Integer roleId, boolean firstLoginFlag, boolean success){
+        this.userId = userId;
+        this.departmentId = departmentId;
+        this.roleId = roleId;
+        this.firstLoginFlag = firstLoginFlag;
         this.success = success;
     }
 
-    public int getId(){
-        return id;
+    public Integer getUserId(){
+        return userId;
     }
 
     public Integer getDepartmentId(){
-        return department_id;
+        return departmentId;
     }
 
     public Integer getRoleId(){
-        return role_id;
+        return roleId;
+    }
+
+    public boolean getFirstLoginFlag(){
+        return firstLoginFlag;
     }
 
     public boolean getSuccess(){
