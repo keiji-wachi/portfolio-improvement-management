@@ -4,7 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Dto.CreateUserDto;
-import com.example.demo.Dto.LoginUserDto;
+import com.example.demo.Dto.LoginResponseDto;
 import com.example.demo.Repository.CreateUserRepository;
 
 @Service
@@ -23,7 +23,7 @@ public class UserCreateService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public int createUser(CreateUserDto dto,LoginUserDto loginUser) {
+    public int createUser(CreateUserDto dto,LoginResponseDto loginUser) {
 
         // 未ログインなら拒否
         if (loginUser == null) {

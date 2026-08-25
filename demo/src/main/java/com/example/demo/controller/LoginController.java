@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Dto.LoginRequestDto;
 import com.example.demo.Dto.LoginResponseDto;
-import com.example.demo.Dto.LoginUserDto;
 import com.example.demo.Service.LoginRequestService;
 
 import jakarta.servlet.http.HttpSession;
