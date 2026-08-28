@@ -2,14 +2,16 @@ package com.example.demo.Dto;
 
 public class UserListDto {
     private int id;
+    private String employeeNumber;
     private String name; 
     private int departmentId;
     private int roleId;
     private String departmentName;
     private String roleName;
 
-    public UserListDto(int id, String name, int departmentId, int roleId, String departmentName, String roleName){
+    public UserListDto(int id, String employeeNumber, String name, int departmentId, int roleId, String departmentName, String roleName){
         this.id = id;
+        this.employeeNumber = employeeNumber;
         this.name = name;
         this.departmentId = departmentId;
         this.roleId = roleId;
@@ -19,6 +21,10 @@ public class UserListDto {
 
     public int getId(){
         return id;
+    }
+
+    public String getEmployeeNumber(){
+        return employeeNumber;
     }
 
     public String getName(){

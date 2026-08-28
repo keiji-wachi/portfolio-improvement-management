@@ -2,6 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.print.attribute.IntegerSyntax;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,8 +53,11 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserListDto> getUser() {
-        return userListService.findAll();
+    public List<UserListDto> getUser(HttpSession session) {
+        LoginResponseDto loginUser =
+            (LoginResponseDto) session.getAttribute("loginUser");
+
+        return userListService.findAll(loginUser);
     }
 
     @DeleteMapping("/{id}")
@@ -60,8 +66,17 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public int userUpdate(@PathVariable int id, @RequestBody UserUpdateDto dto) {
-        return userUpdateService.userUpdate(id, dto);
+    public ResponseEntity<Void> updateUser(
+        @PathVariable Integer id,
+        @Valid @RequestBody UserUpdateDto dto,
+        HttpSession session) {
+
+        LoginResponseDto loginUser =
+            (LoginResponseDto) session.getAttribute("loginUser");
+
+        userUpdateService.updateUser(loginUser, id, dto);
+
+        return ResponseEntity.ok().build();
     }
     
 }

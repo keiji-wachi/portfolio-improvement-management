@@ -1,11 +1,23 @@
 package com.example.demo.Dto;
 
-public class UserUpdateDto {
-    private String name; 
-    private int departmentId;
-    private int roleId;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-    public UserUpdateDto(String name, int departmentId, int roleId){
+public class UserUpdateDto {
+
+    @NotBlank
+    private String name; 
+
+    @NotNull
+    @Positive
+    private Integer departmentId;
+
+    @NotNull
+    @Positive
+    private Integer roleId;
+
+    public UserUpdateDto(String name, Integer departmentId, Integer roleId){
         this.name = name;
         this.departmentId = departmentId;
         this.roleId = roleId;
@@ -15,11 +27,11 @@ public class UserUpdateDto {
         return name;
     }
 
-    public int getDepartmentId(){
+    public Integer getDepartmentId(){
         return departmentId;
     }
 
-    public int getRoleId(){
+    public Integer getRoleId(){
         return roleId;
     }
 }
