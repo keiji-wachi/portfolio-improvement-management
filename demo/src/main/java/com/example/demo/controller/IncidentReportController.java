@@ -48,11 +48,10 @@ public class IncidentReportController {
     }
 
     @GetMapping
-    public List<IncidentReportResponseDto> getIncidentReport(@RequestParam YearMonth targetMonth) {
-        return getIncidentReportService.searchByMonth(targetMonth);
+    public List<IncidentReportResponseDto> getIncidentReport(@RequestParam(required = false) YearMonth targetMonth,HttpSession session) {
+        LoginResponseDto loginUser = (LoginResponseDto) session.getAttribute("loginUser");
+        return getIncidentReportService.searchByMonth(targetMonth, loginUser);
     }
-    
-    
 }
 
 
