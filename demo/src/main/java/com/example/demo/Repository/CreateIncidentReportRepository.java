@@ -13,8 +13,20 @@ public class CreateIncidentReportRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public int createIncidentReport(CreateIncidentReportDto dto){
+    public boolean existsByProcessId(int processId) {
+        String sql = "SELECT COUNT(*) FROM process_mst WHERE id = ?";
+        Integer count = jdbcTemplate.queryForObject(sql,Integer.class,processId);
+        return count != null && count > 0;
+    }
+
+    public boolean existsByIncidentTypeId(int incidentTypeId) {
+        String sql = "SELECT COUNT(*) FROM incident_type_mst WHERE id = ?";
+        Integer count = jdbcTemplate.queryForObject(sql,Integer.class,incidentTypeId);
+        return count != null && count > 0;
+    }
+
+    public int createIncidentReport(CreateIncidentReportDto dto, int departmentId, int reportUserId) {
         String sql = "INSERT INTO incident_response (department_id, report_user_id, occurred_process_id, incident_type_id, incident_detail, action_taken) VALUES(?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, dto.getDepartmentId(), dto.getReportUserId(), dto.getOccurredProcessId(), dto.getIncidentTypeId(), dto.getIncidentDetail(), dto.getActionTaken());
+        return jdbcTemplate.update(sql, departmentId, reportUserId, dto.getOccurredProcessId(), dto.getIncidentTypeId(), dto.getIncidentDetail(), dto.getActionTaken());
     }
 }

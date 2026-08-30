@@ -1,36 +1,40 @@
 package com.example.demo.Dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 public class CreateIncidentReportDto {
 
-    private int department_id;
-    private int report_user_id;
-    private int occurred_process_id;
-    private int incident_type_id;
+    @NotNull
+    @Positive
+    private Integer occurred_process_id;
+
+    @NotNull
+    @Positive
+    private Integer incident_type_id;
+
+    @NotBlank
+    @Size(max = 500)
     private String incident_detail;
+
+    @NotBlank
+    @Size(max = 500)
     private String action_taken;
 
-    public CreateIncidentReportDto(int department_id, int report_user_id, int occurred_process_id, int incident_type_id, String incident_detail, String action_taken){
-        this.department_id = department_id;
-        this.report_user_id = report_user_id;
+    public CreateIncidentReportDto(Integer occurred_process_id, Integer incident_type_id, String incident_detail, String action_taken){
         this.occurred_process_id = occurred_process_id;
         this.incident_type_id = incident_type_id;
         this.incident_detail = incident_detail;
         this.action_taken = action_taken;
     }
 
-    public int getDepartmentId(){
-        return department_id;
-    }
-
-    public int getReportUserId(){
-        return report_user_id;
-    }
-
-    public int getOccurredProcessId(){
+    public Integer getOccurredProcessId(){
         return occurred_process_id;
     }
 
-    public int getIncidentTypeId(){
+    public Integer getIncidentTypeId(){
         return incident_type_id;
     }
 

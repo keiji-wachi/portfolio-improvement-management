@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Dto.CreateIncidentReportDto;
 import com.example.demo.Dto.IncidentReportResponseDto;
+import com.example.demo.Dto.LoginResponseDto;
 import com.example.demo.Service.CreateIncidentReportService;
 import com.example.demo.Service.GetIncidentReportService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,8 +39,10 @@ public class IncidentReportController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createIncidentReport(@RequestBody CreateIncidentReportDto dto) {        
-        createIncidentReportService.createIncidentReport(dto);
+    public ResponseEntity<String> createIncidentReport(@Valid @RequestBody CreateIncidentReportDto dto, HttpSession session) {      
+
+        LoginResponseDto loginUser = (LoginResponseDto) session.getAttribute("loginUser");
+        createIncidentReportService.createIncidentReport(dto, loginUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("異常対応入力完了");
     }
