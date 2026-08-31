@@ -2,8 +2,6 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import javax.print.attribute.IntegerSyntax;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,8 +59,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable int id){
-        userDeleteService.deleteUser(id);
+    public int deleteUser(@PathVariable Integer id,HttpSession session) {
+        LoginResponseDto loginUser = (LoginResponseDto) session.getAttribute("loginUser");
+        return userDeleteService.deleteUser(id, loginUser);
     }
 
     @PutMapping("/{id}")
