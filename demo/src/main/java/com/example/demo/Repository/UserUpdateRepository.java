@@ -29,6 +29,7 @@ public class UserUpdateRepository {
                     role_id
                 FROM user_mst
                 WHERE id = ?
+                AND is_deleted = false
                 """;
 
         List<UserUpdateTargetDto> users = jdbcTemplate.query(
@@ -55,6 +56,7 @@ public class UserUpdateRepository {
                     department_id = ?,
                     role_id = ?
                 WHERE id = ?
+                AND is_deleted = false
                 """;
 
         return jdbcTemplate.update(
