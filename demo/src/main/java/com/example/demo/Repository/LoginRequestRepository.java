@@ -26,6 +26,7 @@ public LoginUserDto findByEmployeeNo(String employeeNo) {
             first_login_flag
         FROM user_mst
         WHERE employee_number = ?
+        AND is_deleted = false
         """;
 
     try {

@@ -30,6 +30,7 @@ public class UserListRepository {
                 ON u.department_id = d.department_id
             JOIN role_mst r
                 ON u.role_id = r.role_id
+            WHERE u.is_deleted = false
             ORDER BY u.id
             """;
 
@@ -64,6 +65,7 @@ public class UserListRepository {
         JOIN role_mst r
             ON u.role_id = r.role_id
         WHERE u.department_id = ?
+        AND u.is_deleted = false
         """;
 
     return jdbcTemplate.query(
