@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Dto.CreateIncidentReportDto;
 import com.example.demo.Repository.CreateIncidentReportRepository;
-import com.example.demo.Dto.LoginResponseDto;
+import com.example.demo.security.CustomUserDetails;
 
 @Service
 public class CreateIncidentReportService {
@@ -16,11 +16,7 @@ public class CreateIncidentReportService {
         this.repository = repository;
     }
 
-    public int createIncidentReport(CreateIncidentReportDto dto, LoginResponseDto loginUser){
-
-        if(loginUser == null){
-            throw new IllegalStateException("ログインが必要です");
-        }
+    public int createIncidentReport(CreateIncidentReportDto dto, CustomUserDetails loginUser){
 
         int loginRoleId = loginUser.getRoleId();
         if (loginRoleId != INSTRUCTOR && loginRoleId != RELIEF) {

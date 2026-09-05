@@ -4,8 +4,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Dto.CreateUserDto;
-import com.example.demo.Dto.LoginResponseDto;
 import com.example.demo.Repository.CreateUserRepository;
+import com.example.demo.security.CustomUserDetails;
 
 @Service
 public class UserCreateService {
@@ -23,13 +23,8 @@ public class UserCreateService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public int createUser(CreateUserDto dto,LoginResponseDto loginUser) {
-
-        // 未ログインなら拒否
-        if (loginUser == null) {
-            throw new RuntimeException("ログインが必要です");
-        }
-
+    public int createUser(CreateUserDto dto,CustomUserDetails loginUser) {
+        
         int roleId = loginUser.getRoleId();
 
         // ユーザー作成可能なroleだけ許可

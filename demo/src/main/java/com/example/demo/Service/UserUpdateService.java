@@ -2,11 +2,11 @@ package com.example.demo.Service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Dto.LoginResponseDto;
 import com.example.demo.Dto.UserUpdateDto;
 import com.example.demo.Dto.UserUpdateTargetDto;
 import com.example.demo.Repository.UserUpdateRepository;
 import com.example.demo.Repository.CreateUserRepository;
+import com.example.demo.security.CustomUserDetails;
 
 @Service
 public class UserUpdateService {
@@ -23,7 +23,7 @@ public class UserUpdateService {
         this.createUserRepository = createUserRepository;
     }
 
-    public void updateUser(LoginResponseDto loginUser, Integer id, UserUpdateDto dto) {
+    public void updateUser(CustomUserDetails loginUser, Integer id, UserUpdateDto dto) {
         UserUpdateTargetDto targetUser = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("更新対象ユーザーが存在しません"));
 
             int loginRoleId = loginUser.getRoleId();
