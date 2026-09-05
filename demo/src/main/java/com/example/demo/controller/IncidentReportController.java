@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Dto.CreateIncidentReportDto;
 import com.example.demo.Dto.IncidentReportResponseDto;
-import com.example.demo.Dto.LoginResponseDto;
 import com.example.demo.Service.CreateIncidentReportService;
 import com.example.demo.Service.GetIncidentReportService;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import com.example.demo.security.CustomUserDetails;
 
 
 @RestController
@@ -39,17 +38,15 @@ public class IncidentReportController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createIncidentReport(@Valid @RequestBody CreateIncidentReportDto dto, HttpSession session) {      
+    public ResponseEntity<String> createIncidentReport(@Valid @RequestBody CreateIncidentReportDto dto, CustomUserDetails loginUser) {      
 
-        LoginResponseDto loginUser = (LoginResponseDto) session.getAttribute("loginUser");
         createIncidentReportService.createIncidentReport(dto, loginUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("異常対応入力完了");
     }
 
     @GetMapping
-    public List<IncidentReportResponseDto> getIncidentReport(@RequestParam(required = false) YearMonth targetMonth,HttpSession session) {
-        LoginResponseDto loginUser = (LoginResponseDto) session.getAttribute("loginUser");
+    public List<IncidentReportResponseDto> getIncidentReport(@RequestParam(required = false) YearMonth targetMonth, @AuthenticationPrincipal CustomUserDetails loginUser) {
         return getIncidentReportService.searchByMonth(targetMonth, loginUser);
     }
 }

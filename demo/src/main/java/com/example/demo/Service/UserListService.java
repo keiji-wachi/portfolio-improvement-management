@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Dto.LoginResponseDto;
 import com.example.demo.Dto.UserListDto;
 import com.example.demo.Repository.UserListRepository;
+import com.example.demo.security.CustomUserDetails;
 
 @Service
 public class UserListService {
@@ -20,7 +20,7 @@ public class UserListService {
         this.userListRepository = userListRepository;
     }
 
-    public List<UserListDto> findAll(LoginResponseDto loginUser) {
+    public List<UserListDto> findAll(CustomUserDetails loginUser) {
 
         int roleId = loginUser.getRoleId();
 

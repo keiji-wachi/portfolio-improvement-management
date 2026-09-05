@@ -2,9 +2,9 @@ package com.example.demo.Service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Dto.LoginResponseDto;
 import com.example.demo.Dto.UserDeleteTargetDto;
 import com.example.demo.Repository.UserDeleteRepository;
+import com.example.demo.security.CustomUserDetails;
 
 @Service
 public class UserDeleteService {
@@ -20,7 +20,7 @@ public class UserDeleteService {
         this.userDeleteRepository = userDeleteRepository;
     }
 
-    public int deleteUser(Integer id, LoginResponseDto loginUser) {
+    public int deleteUser(Integer id, CustomUserDetails loginUser) {
 
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("削除対象ユーザーIDが不正です");

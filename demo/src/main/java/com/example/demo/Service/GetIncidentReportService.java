@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Dto.IncidentReportResponseDto;
-import com.example.demo.Dto.LoginResponseDto;
 import com.example.demo.Repository.GetIncidentReportRepository;
+import com.example.demo.security.CustomUserDetails;
 
 @Service
 public class GetIncidentReportService {
@@ -22,12 +22,7 @@ public class GetIncidentReportService {
         this.repository = repository;
     }
 
-    public List<IncidentReportResponseDto> searchByMonth(YearMonth targetMonth,LoginResponseDto loginUser) {
-
-        if (loginUser == null) {
-            throw new IllegalStateException("ログインが必要です");
-        }
-
+    public List<IncidentReportResponseDto> searchByMonth(YearMonth targetMonth,CustomUserDetails loginUser) {
         YearMonth searchMonth;
 
         if (targetMonth == null) {

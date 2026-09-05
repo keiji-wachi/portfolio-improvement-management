@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Dto.CreateUserDto;
-import com.example.demo.Dto.LoginResponseDto;
 import com.example.demo.Dto.UserListDto;
 import com.example.demo.Dto.UserUpdateDto;
 import com.example.demo.Service.UserCreateService;
@@ -18,14 +17,14 @@ import com.example.demo.Service.UserDeleteService;
 import com.example.demo.Service.UserListService;
 import com.example.demo.Service.UserUpdateService;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import com.example.demo.security.CustomUserDetails;
 
 @RestController
 @RequestMapping("/users")
@@ -45,34 +44,23 @@ public class UserController {
     }
 
     @PostMapping
-    public int createUser(@Valid @RequestBody CreateUserDto dto,HttpSession session) {
-        LoginResponseDto  loginUser = (LoginResponseDto) session.getAttribute("loginUser");
+    public int createUser(@Valid @RequestBody CreateUserDto dto,@AuthenticationPrincipal CustomUserDetails loginUser) {
         return userCreateService.createUser(dto, loginUser);
     }
 
     @GetMapping
-    public List<UserListDto> getUser(HttpSession session) {
-        LoginResponseDto loginUser =
-            (LoginResponseDto) session.getAttribute("loginUser");
+    public List<UserListDto> getUser(@AuthenticationPrincipal CustomUserDetails loginUser) {
 
         return userListService.findAll(loginUser);
     }
 
     @DeleteMapping("/{id}")
-    public int deleteUser(@PathVariable Integer id,HttpSession session) {
-        LoginResponseDto loginUser = (LoginResponseDto) session.getAttribute("loginUser");
+    public int deleteUser(@PathVariable Integer id, @AuthenticationPrincipal CustomUserDetails loginUser) {
         return userDeleteService.deleteUser(id, loginUser);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(
-        @PathVariable Integer id,
-        @Valid @RequestBody UserUpdateDto dto,
-        HttpSession session) {
-
-        LoginResponseDto loginUser =
-            (LoginResponseDto) session.getAttribute("loginUser");
-
+    public ResponseEntity<Void> updateUser(@PathVariable Integer id,@Valid @RequestBody UserUpdateDto dto,@AuthenticationPrincipal CustomUserDetails loginUser) {
         userUpdateService.updateUser(loginUser, id, dto);
 
         return ResponseEntity.ok().build();

@@ -1,40 +1,77 @@
 package com.example.demo.Service;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Dto.LoginRequestDto;
 import com.example.demo.Dto.LoginResponseDto;
-import com.example.demo.Dto.LoginUserDto;
-import com.example.demo.Repository.LoginRequestRepository;
+import com.example.demo.security.CustomUserDetails;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 @Service
 public class LoginRequestService {
 
-    private final LoginRequestRepository repository;
-    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
-    public LoginRequestService(LoginRequestRepository repository, PasswordEncoder passwordEncoder){
-        this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
+    public LoginRequestService(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
     }
 
-    public LoginResponseDto loginAuth(LoginRequestDto dto) {
+    public LoginResponseDto loginAuth(
+        LoginRequestDto dto,
+        HttpServletRequest request,
+        HttpServletResponse response) {
 
-        LoginUserDto user = repository.findByEmployeeNo(dto.getEmployeeNo());
+    try {
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                dto.getEmployeeNo(),
+                                dto.getPassWord()
+                        )
+                );
 
-        if (user == null) {
-            // employeeNoが存在しない
-            return new LoginResponseDto(null, null, null, false, false);
-        }
+        SecurityContext context =
+                SecurityContextHolder.createEmptyContext();
 
-    boolean passwordMatches = passwordEncoder.matches(dto.getPassWord(),user.getPasswordHash());
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
 
-    if (!passwordMatches) {
-        return new LoginResponseDto(null, null, null, false, false);
+        HttpSession session = request.getSession(true);
+
+        session.setAttribute(
+                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                context
+        );
+
+        CustomUserDetails userDetails =
+                (CustomUserDetails) authentication.getPrincipal();
+
+        return new LoginResponseDto(
+                userDetails.getUserId(),
+                userDetails.getDepartmentId(),
+                userDetails.getRoleId(),
+                userDetails.getFirstLoginFlag(),
+                true
+        );
+
+    } catch (BadCredentialsException e) {
+
+        return new LoginResponseDto(
+                null,
+                null,
+                null,
+                false,
+                false
+        );
     }
-
-    return new LoginResponseDto(user.getUserId(),user.getDepartmentId(),user.getRoleId(),user.getFirstLoginFlag(),true);
-
-    }
+    }  
 }
