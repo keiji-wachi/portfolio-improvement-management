@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.incident.dto.IncidentReportResponseDto;
 import com.example.improvementmanagement.incident.repository.GetIncidentReportRepository;
+import com.example.improvementmanagement.common.exception.ForbiddenOperationException;
 
 @Service
 public class GetIncidentReportService {
@@ -37,7 +38,7 @@ public class GetIncidentReportService {
         int loginRoleId = loginUser.getRoleId();
 
         if (loginRoleId != INSTRUCTOR && loginRoleId != RELIEF && loginRoleId != WORKER) {
-            throw new IllegalStateException("異常対応記録の閲覧権限がありません");
+            throw new ForbiddenOperationException("異常対応記録の閲覧権限がありません");
         }
 
         int departmentId = loginUser.getDepartmentId();

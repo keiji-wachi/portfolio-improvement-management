@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.user.dto.CreateUserDto;
 import com.example.improvementmanagement.user.repository.CreateUserRepository;
+import com.example.improvementmanagement.common.exception.DuplicateResourceException;
+import com.example.improvementmanagement.common.exception.ForbiddenOperationException;
+import com.example.improvementmanagement.common.exception.ResourceNotFoundException;
 
 @Service
 public class UserCreateService {
@@ -31,39 +34,37 @@ public class UserCreateService {
         if (roleId != SYSTEM_ADMIN_ROLE_ID
                 && roleId != INSTRUCTOR_ROLE_ID) {
 
-            throw new RuntimeException(
-                    "ユーザーを登録する権限がありません"
-            );
+            throw new ForbiddenOperationException("ユーザーを登録する権限がありません");
         }
 
             // Step 8：指導員の部署スコープ
         if (roleId == INSTRUCTOR_ROLE_ID) {
 
             if (loginUser.getDepartmentId() != (dto.getDepartment_id())) {
-            throw new RuntimeException("他部署のユーザーは登録できません");
+            throw new ForbiddenOperationException("他部署のユーザーは登録できません");
         }
             // Step 9：指導員のroleスコープ
             int targetRoleId = dto.getRole_id();
 
             if (targetRoleId != RELIEF_ROLE_ID
                 && targetRoleId != WORKER_ROLE_ID) {
-                    throw new RuntimeException("指導員が登録できるのはリリーフまたは作業者のみです");
+                    throw new ForbiddenOperationException("指導員が登録できるのはリリーフまたは作業者のみです");
             }
         }
 
             // Step 10：社員番号重複チェック
         if (repository.existsByEmployeeNo(dto.getEmployeeNo())) {
-                throw new RuntimeException("この社員番号はすでに登録されています");
+                throw new DuplicateResourceException("この社員番号はすでに登録されています");
         }
 
             // Step 11-1：department実在チェック
         if (!repository.existsDepartmentById(dto.getDepartment_id())) {
-                throw new RuntimeException("指定された部署は存在しません");
+                throw new ResourceNotFoundException("指定された部署は存在しません");
         }
 
         // Step 11-2：role実在チェック
         if (!repository.existsRoleById(dto.getRole_id())) {
-            throw new RuntimeException("指定された役職は存在しません");
+            throw new ResourceNotFoundException("指定された役職は存在しません");
         }
     
 
