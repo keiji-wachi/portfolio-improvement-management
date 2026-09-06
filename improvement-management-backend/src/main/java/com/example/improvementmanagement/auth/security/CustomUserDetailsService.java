@@ -22,7 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         LoginUserDto user = loginRequestRepository.findByEmployeeNo(employeeNo);
 
         if (user == null) {
-            System.out.println("ユーザーが存在しません: " + employeeNo);
             throw new UsernameNotFoundException("ユーザーが存在しません: " + employeeNo);
         }
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.user.dto.UserListDto;
 import com.example.improvementmanagement.user.repository.UserListRepository;
+import com.example.improvementmanagement.common.exception.ForbiddenOperationException;
 
 @Service
 public class UserListService {
@@ -34,6 +35,6 @@ public class UserListService {
             );
         }
 
-        throw new RuntimeException("ユーザー一覧を参照する権限がありません");
+        throw new ForbiddenOperationException("ユーザー一覧を参照する権限がありません");
     }
 }

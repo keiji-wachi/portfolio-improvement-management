@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.user.dto.UserDeleteTargetDto;
 import com.example.improvementmanagement.user.repository.UserDeleteRepository;
+import com.example.improvementmanagement.common.exception.ForbiddenOperationException;
+import com.example.improvementmanagement.common.exception.ResourceNotFoundException;
+
 
 @Service
 public class UserDeleteService {
@@ -29,13 +32,13 @@ public class UserDeleteService {
         UserDeleteTargetDto targetUser = userDeleteRepository.findById(id);
 
         if (targetUser == null) {
-            throw new IllegalArgumentException("削除対象ユーザーが存在しません");
+            throw new ResourceNotFoundException("削除対象ユーザーが存在しません");
         }
 
         int roleId = loginUser.getRoleId();
 
         if (loginUser.getUserId().equals(targetUser.getId())) {
-            throw new RuntimeException("このユーザーは削除することはできません");
+            throw new ForbiddenOperationException("このユーザーは削除することはできません");
         }
 
         if (roleId == SYSTEM_ADMIN) {
@@ -45,18 +48,18 @@ public class UserDeleteService {
         if (roleId == INSTRUCTOR) {
 
             if (!loginUser.getDepartmentId().equals(targetUser.getDepartmentId())) {
-                throw new RuntimeException("他部署のユーザーは削除できません");
+                throw new ForbiddenOperationException("他部署のユーザーは削除できません");
             }
 
             int targetRoleId = targetUser.getRoleId();
 
             if (targetRoleId != RELIEF && targetRoleId != WORKER) {
-                throw new RuntimeException("このユーザーは削除できません");
+                throw new ForbiddenOperationException("このユーザーは削除できません");
             }
 
             return userDeleteRepository.logicalDelete(id);
         }
 
-        throw new RuntimeException("ユーザーを削除する権限がありません");
+        throw new ForbiddenOperationException("ユーザーを削除する権限がありません");
     }
 }

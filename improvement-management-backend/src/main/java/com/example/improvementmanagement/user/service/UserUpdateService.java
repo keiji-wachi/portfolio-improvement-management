@@ -7,6 +7,8 @@ import com.example.improvementmanagement.user.dto.UserUpdateDto;
 import com.example.improvementmanagement.user.dto.UserUpdateTargetDto;
 import com.example.improvementmanagement.user.repository.CreateUserRepository;
 import com.example.improvementmanagement.user.repository.UserUpdateRepository;
+import com.example.improvementmanagement.common.exception.ForbiddenOperationException;
+import com.example.improvementmanagement.common.exception.ResourceNotFoundException;
 
 @Service
 public class UserUpdateService {
@@ -24,7 +26,7 @@ public class UserUpdateService {
     }
 
     public void updateUser(CustomUserDetails loginUser, Integer id, UserUpdateDto dto) {
-        UserUpdateTargetDto targetUser = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("更新対象ユーザーが存在しません"));
+        UserUpdateTargetDto targetUser = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("更新対象ユーザーが存在しません"));
 
             int loginRoleId = loginUser.getRoleId();
             int requestedRoleId = dto.getRoleId();
@@ -34,37 +36,37 @@ public class UserUpdateService {
 
                 } else if (loginRoleId == INSTRUCTOR) {
                     if (!targetUser.getDepartmentId().equals(loginUser.getDepartmentId())) {
-                        throw new IllegalStateException("他部署のユーザーは更新できません");
+                        throw new ForbiddenOperationException("他部署のユーザーは更新できません");
                     }
 
                     if (!dto.getDepartmentId().equals(loginUser.getDepartmentId())) {
-                        throw new IllegalStateException("他部署へ変更することはできません");
+                        throw new ForbiddenOperationException("他部署へ変更することはできません");
                     }
 
                     if (requestedRoleId != RELIEF && requestedRoleId != WORKER) {
-                        throw new IllegalStateException("指定されたroleへ変更する権限がありません");
+                        throw new ForbiddenOperationException("指定されたroleへ変更する権限がありません");
                     }
 
                     if (targetRoleId != RELIEF && targetRoleId != WORKER) {
-                        throw new IllegalStateException("このユーザーを更新する権限がありません");
+                        throw new ForbiddenOperationException("このユーザーを更新する権限がありません");
                     }
 
                 } else {
-                    throw new IllegalStateException("ユーザー更新権限がありません");
+                    throw new ForbiddenOperationException("ユーザー更新権限がありません");
                 }
                 
                 if (!createUserRepository.existsDepartmentById(dto.getDepartmentId())) {
-                    throw new IllegalArgumentException("指定された部署が存在しません");
+                    throw new ResourceNotFoundException("指定された部署が存在しません");
                 }
 
                 if (!createUserRepository.existsRoleById(dto.getRoleId())) {
-                    throw new IllegalArgumentException("指定されたroleが存在しません");
+                    throw new ResourceNotFoundException("指定されたroleが存在しません");
                 }
 
                 int updateCount = repository.updateUser(id, dto);
 
                 if (updateCount != 1) {
-                    throw new IllegalStateException("ユーザー更新に失敗しました");
+                    throw new RuntimeException("ユーザー更新に失敗しました");
                 }
     }
 }
