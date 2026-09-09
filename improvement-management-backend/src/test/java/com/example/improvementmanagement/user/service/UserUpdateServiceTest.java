@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
-import com.example.improvementmanagement.common.exception.DuplicateResourceException;
 import com.example.improvementmanagement.common.exception.ForbiddenOperationException;
 import com.example.improvementmanagement.common.exception.ResourceNotFoundException;
 import com.example.improvementmanagement.user.dto.UserUpdateDto;
