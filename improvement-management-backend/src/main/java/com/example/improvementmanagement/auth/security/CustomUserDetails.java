@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
@@ -36,7 +37,19 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        
+        String roleName = switch (roleId) {
+            case 1 -> "ROLE_SYSTEM_ADMIN";
+            case 2 -> "ROLE_INSTRUCTOR";
+            case 3 -> "ROLE_RELIEF";
+            case 4 -> "ROLE_WORKER";
+
+            default -> throw new IllegalStateException("不正なロールIDです: " + roleId);
+        };
+
+        return List.of(
+            new SimpleGrantedAuthority(roleName)
+        );
     }
 
     public Integer getUserId() {

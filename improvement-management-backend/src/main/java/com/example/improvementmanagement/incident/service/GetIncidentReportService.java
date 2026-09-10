@@ -4,25 +4,23 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.incident.dto.IncidentReportResponseDto;
 import com.example.improvementmanagement.incident.repository.GetIncidentReportRepository;
-import com.example.improvementmanagement.common.exception.ForbiddenOperationException;
 
 @Service
 public class GetIncidentReportService {
 
     private final GetIncidentReportRepository repository;
-    private static final int INSTRUCTOR = 2;
-    private static final int RELIEF = 3;
-    private static final int WORKER = 4;
         
     public GetIncidentReportService(GetIncidentReportRepository repository){
         this.repository = repository;
     }
 
+    @PreAuthorize("@incidentAuthorization.canGet(authentication)")
     public List<IncidentReportResponseDto> searchByMonth(YearMonth targetMonth,CustomUserDetails loginUser) {
         YearMonth searchMonth;
 
@@ -34,13 +32,6 @@ public class GetIncidentReportService {
 
         LocalDateTime from = searchMonth.atDay(1).atStartOfDay();
         LocalDateTime to = searchMonth.plusMonths(1).atDay(1).atStartOfDay();
-
-        int loginRoleId = loginUser.getRoleId();
-
-        if (loginRoleId != INSTRUCTOR && loginRoleId != RELIEF && loginRoleId != WORKER) {
-            throw new ForbiddenOperationException("異常対応記録の閲覧権限がありません");
-        }
-
         int departmentId = loginUser.getDepartmentId();
 
         return repository.findByMonth(from, to, departmentId);

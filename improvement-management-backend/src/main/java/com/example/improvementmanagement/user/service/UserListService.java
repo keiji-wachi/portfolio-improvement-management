@@ -2,18 +2,16 @@ package com.example.improvementmanagement.user.service;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.user.dto.UserListDto;
 import com.example.improvementmanagement.user.repository.UserListRepository;
-import com.example.improvementmanagement.common.exception.ForbiddenOperationException;
+import static com.example.improvementmanagement.auth.security.constants.RoleConstants.*;
 
 @Service
 public class UserListService {
-
-    private static final int SYSTEM_ADMIN = 1;
-    private static final int INSTRUCTOR = 2;
 
     private final UserListRepository userListRepository;
 
@@ -21,20 +19,15 @@ public class UserListService {
         this.userListRepository = userListRepository;
     }
 
+    @PreAuthorize("@userAuthorization.canGet(authentication)")
     public List<UserListDto> findAll(CustomUserDetails loginUser) {
 
-        int roleId = loginUser.getRoleId();
-
-        if (roleId == SYSTEM_ADMIN) {
+        if (loginUser.getRoleId() == SYSTEM_ADMIN) {
             return userListRepository.findAll();
         }
-
-        if (roleId == INSTRUCTOR) {
-            return userListRepository.findByDepartmentId(
-                loginUser.getDepartmentId()
-            );
-        }
-
-        throw new ForbiddenOperationException("ユーザー一覧を参照する権限がありません");
+        
+        return userListRepository.findByDepartmentId(
+            loginUser.getDepartmentId()
+        );
     }
 }
