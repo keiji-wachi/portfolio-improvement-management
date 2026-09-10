@@ -44,8 +44,8 @@ public class UserController {
     }
 
     @PostMapping
-    public int createUser(@Valid @RequestBody CreateUserDto dto,@AuthenticationPrincipal CustomUserDetails loginUser) {
-        return userCreateService.createUser(dto, loginUser);
+    public int createUser(@Valid @RequestBody CreateUserDto dto) {
+        return userCreateService.createUser(dto);
     }
 
     @GetMapping
@@ -56,12 +56,12 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public int deleteUser(@PathVariable Integer id, @AuthenticationPrincipal CustomUserDetails loginUser) {
-        return userDeleteService.deleteUser(id, loginUser);
+        return userDeleteService.deleteUser(id);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable Integer id,@Valid @RequestBody UserUpdateDto dto,@AuthenticationPrincipal CustomUserDetails loginUser) {
-        userUpdateService.updateUser(loginUser, id, dto);
+        userUpdateService.updateUser(id, dto);
 
         return ResponseEntity.ok().build();
     }

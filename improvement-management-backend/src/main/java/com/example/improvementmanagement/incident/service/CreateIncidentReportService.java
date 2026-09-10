@@ -1,29 +1,23 @@
 package com.example.improvementmanagement.incident.service;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.incident.dto.CreateIncidentReportDto;
 import com.example.improvementmanagement.incident.repository.CreateIncidentReportRepository;
-import com.example.improvementmanagement.common.exception.ForbiddenOperationException;
 import com.example.improvementmanagement.common.exception.ResourceNotFoundException;
 
 @Service
 public class CreateIncidentReportService {
     private  final CreateIncidentReportRepository repository;
-    private static final int INSTRUCTOR = 2;
-    private static final int RELIEF = 3;
 
     public CreateIncidentReportService(CreateIncidentReportRepository repository){
         this.repository = repository;
     }
 
+    @PreAuthorize("@incidentAuthorization.canCreate(authentication)")
     public int createIncidentReport(CreateIncidentReportDto dto, CustomUserDetails loginUser){
-
-        int loginRoleId = loginUser.getRoleId();
-        if (loginRoleId != INSTRUCTOR && loginRoleId != RELIEF) {
-            throw new ForbiddenOperationException("異常対応入力権限がありません");
-        }
 
         int departmentId = loginUser.getDepartmentId();
         int reportUserId = loginUser.getUserId();
