@@ -1,4 +1,4 @@
-package com.example.improvementmanagement.incident.service;
+package com.example.improvementmanagement.unit.incident.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.incident.dto.IncidentReportResponseDto;
 import com.example.improvementmanagement.incident.repository.GetIncidentReportRepository;
+import com.example.improvementmanagement.incident.service.GetIncidentReportService;
 
 @ExtendWith(MockitoExtension.class)
 public class GetIncidentReportServiceTest {

@@ -1,4 +1,4 @@
-package com.example.improvementmanagement.user.service;
+package com.example.improvementmanagement.unit.user.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,6 +20,7 @@ import com.example.improvementmanagement.user.dto.UserUpdateDto;
 import com.example.improvementmanagement.user.dto.UserUpdateTargetDto;
 import com.example.improvementmanagement.user.repository.CreateUserRepository;
 import com.example.improvementmanagement.user.repository.UserUpdateRepository;
+import com.example.improvementmanagement.user.service.UserUpdateService;
 
 @ExtendWith(MockitoExtension.class)
 class UserUpdateServiceTest {

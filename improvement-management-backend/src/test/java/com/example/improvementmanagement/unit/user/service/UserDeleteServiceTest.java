@@ -1,4 +1,4 @@
-package com.example.improvementmanagement.user.service;
+package com.example.improvementmanagement.unit.user.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.improvementmanagement.common.exception.ResourceNotFoundException;
 import com.example.improvementmanagement.user.dto.UserDeleteTargetDto;
 import com.example.improvementmanagement.user.repository.UserDeleteRepository;
+import com.example.improvementmanagement.user.service.UserDeleteService;
 
 @ExtendWith(MockitoExtension.class)
 class UserDeleteServiceTest {
