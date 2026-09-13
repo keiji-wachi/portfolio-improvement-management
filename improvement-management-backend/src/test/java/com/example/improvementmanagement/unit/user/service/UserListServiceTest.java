@@ -1,4 +1,4 @@
-package com.example.improvementmanagement.user.service;
+package com.example.improvementmanagement.unit.user.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.user.dto.UserListDto;
 import com.example.improvementmanagement.user.repository.UserListRepository;
+import com.example.improvementmanagement.user.service.UserListService;
 
 @ExtendWith(MockitoExtension.class)
 class UserListServiceTest {

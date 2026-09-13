@@ -1,4 +1,4 @@
-package com.example.improvementmanagement.incident.service;
+package com.example.improvementmanagement.unit.incident.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,6 +18,7 @@ import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.common.exception.ResourceNotFoundException;
 import com.example.improvementmanagement.incident.dto.CreateIncidentReportDto;
 import com.example.improvementmanagement.incident.repository.CreateIncidentReportRepository;
+import com.example.improvementmanagement.incident.service.CreateIncidentReportService;
 
 @ExtendWith(MockitoExtension.class)
 class CreateIncidentReportServiceTest {

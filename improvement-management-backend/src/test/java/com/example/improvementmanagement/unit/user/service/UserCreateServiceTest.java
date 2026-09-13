@@ -1,4 +1,4 @@
-package com.example.improvementmanagement.user.service;
+package com.example.improvementmanagement.unit.user.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -19,6 +19,7 @@ import com.example.improvementmanagement.common.exception.DuplicateResourceExcep
 import com.example.improvementmanagement.common.exception.ResourceNotFoundException;
 import com.example.improvementmanagement.user.dto.CreateUserDto;
 import com.example.improvementmanagement.user.repository.CreateUserRepository;
+import com.example.improvementmanagement.user.service.UserCreateService;
 
 @ExtendWith(MockitoExtension.class)
 class UserCreateServiceTest {
