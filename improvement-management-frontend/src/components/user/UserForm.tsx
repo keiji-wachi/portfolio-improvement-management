@@ -1,5 +1,7 @@
 import { useState } from "react";
-import type { Department, Role } from "../types/master";
+import type { Department, Role } from "../../types/master";
+import { createUser } from "../../api/user/userApi";
+import { useApiErrorHandler } from "../../hooks/api/useApiErrorHandler";
 
 type Props = {
     onCreated: () => void;
@@ -13,28 +15,24 @@ function UserCreateForm({ onCreated, departments, roles }:Props){
     const [roleId, setRoleId] = useState("");
     const [password, setPassword] = useState("");
     const [employeeNo, setEmployeeNo] = useState("");
+    const handleApiError = useApiErrorHandler();
 
     const userCreate = async () => {
-    const response = await fetch(`http://localhost:8080/users`,{
-        method:"POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-        },
+    try{
+        await createUser({
+            employeeNo,
+            name,
+            departmentId: Number(departmentId),
+            roleId: Number(roleId),
+            password,
+        });
 
-        body: JSON.stringify({
-            employeeNo: employeeNo,
-            name: name,
-            department_id: departmentId,
-            role_id: roleId,
-            password: password,
-        }),
-      });
+        onCreated();
+    } catch (error) {
+        handleApiError(error);
+    }
+};
 
-    const result = await response.text();
-    console.log(result);
-    onCreated();
-  };
     return (
         <div>
             <h2>ユーザー登録</h2>
