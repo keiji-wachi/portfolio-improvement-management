@@ -27,11 +27,11 @@ public class UserCreateService {
                 throw new DuplicateResourceException("この社員番号はすでに登録されています");
         }
 
-        if (!repository.existsDepartmentById(dto.getDepartment_id())) {
+        if (!repository.existsDepartmentById(dto.getDepartmentId())) {
                 throw new ResourceNotFoundException("指定された部署は存在しません");
         }
 
-        if (!repository.existsRoleById(dto.getRole_id())) {
+        if (!repository.existsRoleById(dto.getRoleId())) {
             throw new ResourceNotFoundException("指定された役職は存在しません");
         }
     

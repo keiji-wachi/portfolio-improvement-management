@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate  } from "react-router-dom";
 
 import LoginPage from "../pages/auth/LoginPage";
 import UserListPage from "../pages/user/UserListPage";
@@ -17,6 +17,7 @@ function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/users" element={<ProtectedRoute><UserListPage /></ProtectedRoute>} />
         <Route path="/users/new" element={<ProtectedRoute><UserCreatePage /></ProtectedRoute>} />

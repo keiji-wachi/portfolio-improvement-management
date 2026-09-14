@@ -23,9 +23,11 @@ export async function apiFetch(
   });
 
   if (!response.ok) {
+    const errorBody = await response.json();
+
     throw new ApiError(
       response.status,
-      `API Error: ${response.status}`
+      errorBody.message ?? `API Error: ${response.status}`
     );
   }
 

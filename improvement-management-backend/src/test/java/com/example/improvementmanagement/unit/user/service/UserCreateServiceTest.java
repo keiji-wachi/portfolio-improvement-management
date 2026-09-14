@@ -43,8 +43,8 @@ class UserCreateServiceTest {
     void 正常にユーザーを登録できる() {
 
         when(dto.getEmployeeNo()).thenReturn("E001");
-        when(dto.getDepartment_id()).thenReturn(1);
-        when(dto.getRole_id()).thenReturn(4);
+        when(dto.getDepartmentId()).thenReturn(1);
+        when(dto.getRoleId()).thenReturn(4);
         when(dto.getPassword()).thenReturn("password123");
 
         when(repository.existsByEmployeeNo("E001"))
@@ -98,7 +98,7 @@ class UserCreateServiceTest {
     void 存在しない部署のユーザー登録ができない() {
 
         when(dto.getEmployeeNo()).thenReturn("E001");
-        when(dto.getDepartment_id()).thenReturn(99);
+        when(dto.getDepartmentId()).thenReturn(99);
 
         when(repository.existsByEmployeeNo("E001"))
                 .thenReturn(false);
@@ -124,8 +124,8 @@ class UserCreateServiceTest {
     void 存在しないロールのユーザー登録ができない() {
 
         when(dto.getEmployeeNo()).thenReturn("E001");
-        when(dto.getDepartment_id()).thenReturn(1);
-        when(dto.getRole_id()).thenReturn(99);
+        when(dto.getDepartmentId()).thenReturn(1);
+        when(dto.getRoleId()).thenReturn(99);
 
         when(repository.existsByEmployeeNo("E001"))
                 .thenReturn(false);

@@ -2,6 +2,10 @@ import { useState } from "react";
 import type { Department, Role } from "../../types/master";
 import { createUser } from "../../api/user/userApi";
 import { useApiErrorHandler } from "../../hooks/api/useApiErrorHandler";
+import { ApiError } from "../../api/client";
+import ErrorMessage from "../common/ErrorMessage";
+import ConfirmDialog from "../common/ConfirmDialog";
+import { useToast } from "../../hooks/common/useToast";
 
 type Props = {
     onCreated: () => void;
@@ -15,9 +19,16 @@ function UserCreateForm({ onCreated, departments, roles }:Props){
     const [roleId, setRoleId] = useState("");
     const [password, setPassword] = useState("");
     const [employeeNo, setEmployeeNo] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const { showToast } = useToast();
+
     const handleApiError = useApiErrorHandler();
 
     const userCreate = async () => {
+        setErrorMessage("");
+        setIsLoading(true);
     try{
         await createUser({
             employeeNo,
@@ -26,16 +37,27 @@ function UserCreateForm({ onCreated, departments, roles }:Props){
             roleId: Number(roleId),
             password,
         });
-
+        setIsConfirmOpen(false)
+        showToast("ユーザーを登録しました");
         onCreated();
     } catch (error) {
+        if (error instanceof ApiError && error.status === 400) {
+            setErrorMessage(error.message);
+            setIsConfirmOpen(false)
+            return;
+        }
+
         handleApiError(error);
+
+    } finally {
+        setIsLoading(false);
     }
 };
 
     return (
         <div>
             <h2>ユーザー登録</h2>
+                <ErrorMessage message={errorMessage} />
 
             <div>
                 <label>社員番号</label>
@@ -76,7 +98,29 @@ function UserCreateForm({ onCreated, departments, roles }:Props){
                 <input type="text" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
 
-            <button onClick={userCreate}>登録</button>
+            <button
+                onClick={() => setIsConfirmOpen(true)}
+                disabled={isLoading}
+                >登録
+            </button>
+
+            <ConfirmDialog
+                open={isConfirmOpen}
+                title="ユーザー登録確認"
+                message="以下の内容でユーザーを登録しますか？"
+                confirmText="登録する"
+                cancelText="キャンセル"
+                isLoading={isLoading}
+                onConfirm={userCreate}
+                onCancel={() => setIsConfirmOpen(false)}
+>
+                <div>
+                    <p>社員番号：{employeeNo}</p>
+                    <p>名前：{name}</p>
+                    <p>部署：{departments.find((department) =>department.departmentId === Number(departmentId))?.departmentName}</p>
+                    <p>役職：{roles.find((role) =>role.roleId === Number(roleId))?.roleName}</p>
+                </div>
+            </ConfirmDialog>
         </div>
     );
 }

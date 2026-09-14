@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { login } from "../../api/auth/authApi";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [loginid, setLoginId] = useState("");
   const [password, setPassword] = useState("");
 
   const { setLoginUser } = useAuth();
+  const navigate = useNavigate();
 
   const loginAuth = async () => {
   const data = await login({
@@ -15,6 +17,7 @@ function LoginForm() {
   });
 
   setLoginUser(data);
+  navigate("/users/new");
 };
 
   return (
