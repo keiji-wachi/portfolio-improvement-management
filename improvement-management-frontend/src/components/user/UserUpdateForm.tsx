@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import type { User } from "../../types/user";
+import type { UserDetail } from "../../types/user";
 import type { Department, Role } from "../../types/master";
 import { updateUser } from "../../api/user/userApi";
 import { useApiErrorHandler } from "../../hooks/api/useApiErrorHandler";
+import ConfirmDialog from "../common/ConfirmDialog";
+import { useToast } from "../../hooks/common/useToast";
+import { ApiError } from "../../api/client";
+import ErrorMessage from "../common/ErrorMessage";
 
 type Props = {
   onUpdated: () => void;
-  user: User | null;
+  user: UserDetail | null;
   departments: Department[];
   roles: Role[];
 };
@@ -21,6 +25,12 @@ function UserUpdateForm({
   const [name, setName] = useState("");
   const [departmentId, setDepartmentId] = useState<number>(0);
   const [roleId, setRoleId] = useState<number>(0);
+
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { showToast } = useToast();
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleApiError = useApiErrorHandler();
 
   useEffect(() => {
@@ -33,17 +43,29 @@ function UserUpdateForm({
 
 const userUpdate = async () => {
   if (!user) return;
+  setErrorMessage("");
+  setIsLoading(true);
 
-  try{
-  await updateUser(user.id, {
-    name,
-    departmentId,
-    roleId,
-  });
+  try {
+    await updateUser(user.id, {
+      name,
+      departmentId,
+      roleId,
+    });
 
-  onUpdated();
-  } catch (error){
-    handleApiError(error);
+    setIsConfirmOpen(false);
+
+    showToast("ユーザーを更新しました");
+
+    onUpdated();
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 400) {
+      setErrorMessage(error.message);
+      handleApiError(error);
+      return;
+    }
+  } finally {
+    setIsLoading(false);
   }
 };
 
@@ -95,7 +117,43 @@ const userUpdate = async () => {
         </select>
       </div>
 
-      <button onClick={userUpdate}>変更</button>
+      <button onClick={() => setIsConfirmOpen(true)}>
+        更新
+      </button>
+
+      <ConfirmDialog
+        open={isConfirmOpen}
+        title="ユーザー更新確認"
+        confirmText="更新する"
+        cancelText="キャンセル"
+        isLoading={isLoading}
+        onConfirm={userUpdate}
+        onCancel={() => setIsConfirmOpen(false)}
+      >
+      <div>
+        <p>以下の内容で更新します。</p>
+
+        <p>名前：{name}</p>
+
+      <p>
+        部署：
+          {
+            departments.find(
+            (department) => department.departmentId === departmentId
+            )?.departmentName
+          }
+      </p>
+
+      <p>
+        役職：
+          {
+            roles.find(
+            (role) => role.roleId === roleId
+            )?.roleName
+          }
+      </p>
+      </div>
+      </ConfirmDialog>
     </div>
   );
 }

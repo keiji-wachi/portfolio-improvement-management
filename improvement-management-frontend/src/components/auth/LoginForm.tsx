@@ -17,7 +17,7 @@ function LoginForm() {
   });
 
   setLoginUser(data);
-  navigate("/users/new");
+  navigate("/incidents");
 };
 
   return (

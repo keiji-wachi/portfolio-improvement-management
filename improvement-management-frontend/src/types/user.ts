@@ -6,3 +6,11 @@ export type User = {
   departmentName: string;
   roleName: string;
 }
+
+export type UserDetail = {
+  id: number;
+  employeeNumber: string;
+  name: string;
+  departmentId: number;
+  roleId: number;
+};

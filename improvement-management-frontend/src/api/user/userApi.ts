@@ -1,12 +1,13 @@
 import { apiFetch } from "../client";
-import type { User } from "../../types/user";
+
+import type { User, UserDetail } from "../../types/user";
 
 export async function getUsers(): Promise<User[]> {
   const response = await apiFetch("/users");
   return response.json();
 }
 
-export async function getUserById(id: number): Promise<User> {
+export async function getUserById(id: number): Promise<UserDetail> {
   const response = await apiFetch(`/users/${id}`);
   return response.json();
 }

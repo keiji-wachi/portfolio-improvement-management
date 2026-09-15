@@ -9,14 +9,20 @@ function IncidentReportList() {
   const [reports, setReports] = useState<IncidentReport[]>([]);
   const [targetMonth, setTargetMonth] = useState("2026-08");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const fetchReports = async () => {
-    try{
+  setIsLoading(true);
+
+  try {
     const data = await getIncidents(targetMonth);
     setReports(data);
-    } catch (error) {
-      handleApiError(error);
-    }
-  };
+  } catch (error) {
+    handleApiError(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchReports();
@@ -32,7 +38,9 @@ function IncidentReportList() {
         onChange={(e) => setTargetMonth(e.target.value)}
       />
 
-      <button onClick={fetchReports}>検索</button>
+      <button onClick={fetchReports} disabled={isLoading}>
+        {isLoading ? "検索中..." : "検索"}
+      </button>
 
       <table>
         <thead>

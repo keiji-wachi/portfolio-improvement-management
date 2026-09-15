@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import UserUpdateForm from "../../components/user/UserUpdateForm";
 
-import type { User } from "../../types/user";
+import type { UserDetail } from "../../types/user";
 import type { Department, Role } from "../../types/master";
 import { getDepartments, getRoles } from "../../api/master/masterApi";
 import { getUserById } from "../../api/user/userApi";
@@ -13,7 +13,7 @@ function UserUpdatePage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserDetail | null>(null);
   const [departments, setDepartments] = useState<Department[]>([]);
   const [roles, setRoles] = useState<Role[]>([]);
   const handleApiError = useApiErrorHandler();
