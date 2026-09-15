@@ -36,9 +36,9 @@ public class UserAuthorization {
 
         if (loginUser.getRoleId() == INSTRUCTOR) {
 
-            boolean sameDepartment = loginUser.getDepartmentId().equals(dto.getDepartment_id());
+            boolean sameDepartment = loginUser.getDepartmentId().equals(dto.getDepartmentId());
 
-            boolean allowedRole = dto.getRole_id() == RELIEF || dto.getRole_id() == WORKER;
+            boolean allowedRole = dto.getRoleId() == RELIEF || dto.getRoleId() == WORKER;
 
             return sameDepartment && allowedRole;
         }

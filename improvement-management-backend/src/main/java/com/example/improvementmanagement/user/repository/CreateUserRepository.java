@@ -69,8 +69,8 @@ public class CreateUserRepository {
     return jdbcTemplate.update(
         sql,
         dto.getName(),
-        dto.getDepartment_id(),
-        dto.getRole_id(),
+        dto.getDepartmentId(),
+        dto.getRoleId(),
         passwordHash,
         true,
         dto.getEmployeeNo()

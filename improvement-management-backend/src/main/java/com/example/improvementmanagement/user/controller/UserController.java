@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.improvementmanagement.auth.security.CustomUserDetails;
 import com.example.improvementmanagement.user.dto.CreateUserDto;
+import com.example.improvementmanagement.user.dto.UserDetailDto;
 import com.example.improvementmanagement.user.dto.UserListDto;
 import com.example.improvementmanagement.user.dto.UserUpdateDto;
 import com.example.improvementmanagement.user.service.UserCreateService;
 import com.example.improvementmanagement.user.service.UserDeleteService;
+import com.example.improvementmanagement.user.service.UserGetService;
 import com.example.improvementmanagement.user.service.UserListService;
 import com.example.improvementmanagement.user.service.UserUpdateService;
 
@@ -35,12 +37,14 @@ public class UserController {
     private final UserListService userListService;
     private final UserDeleteService userDeleteService;
     private final UserUpdateService userUpdateService;
+    private final UserGetService userGetService;
 
-    public UserController(UserCreateService userCreateService, UserListService userListService, UserDeleteService userDeleteService, UserUpdateService userUpdateService){
+    public UserController(UserCreateService userCreateService, UserListService userListService, UserDeleteService userDeleteService, UserUpdateService userUpdateService, UserGetService userGetService){
         this.userCreateService = userCreateService;
         this.userListService = userListService;
         this.userDeleteService = userDeleteService;
         this.userUpdateService = userUpdateService;
+        this.userGetService = userGetService;
     }
 
     @PostMapping
@@ -64,6 +68,11 @@ public class UserController {
         userUpdateService.updateUser(id, dto);
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}")
+        public UserDetailDto getUser(@PathVariable Integer id) {
+        return userGetService.getUser(id);
     }
     
 }

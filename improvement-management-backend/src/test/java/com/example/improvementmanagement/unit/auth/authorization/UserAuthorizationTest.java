@@ -80,10 +80,10 @@ class UserAuthorizationTest {
         when(loginUser.getDepartmentId())
                 .thenReturn(1);
 
-        when(dto.getDepartment_id())
+        when(dto.getDepartmentId())
                 .thenReturn(1);
 
-        when(dto.getRole_id())
+        when(dto.getRoleId())
                 .thenReturn(3);
 
         boolean result =
@@ -101,10 +101,10 @@ class UserAuthorizationTest {
         when(loginUser.getDepartmentId())
                 .thenReturn(1);
 
-        when(dto.getDepartment_id())
+        when(dto.getDepartmentId())
                 .thenReturn(1);
 
-        when(dto.getRole_id())
+        when(dto.getRoleId())
                 .thenReturn(4);
 
         boolean result =
@@ -122,10 +122,10 @@ class UserAuthorizationTest {
         when(loginUser.getDepartmentId())
                 .thenReturn(1);
 
-        when(dto.getDepartment_id())
+        when(dto.getDepartmentId())
                 .thenReturn(2);
 
-        when(dto.getRole_id())
+        when(dto.getRoleId())
                 .thenReturn(4);
 
         boolean result =
@@ -143,10 +143,10 @@ class UserAuthorizationTest {
         when(loginUser.getDepartmentId())
                 .thenReturn(1);
 
-        when(dto.getDepartment_id())
+        when(dto.getDepartmentId())
                 .thenReturn(1);
 
-        when(dto.getRole_id())
+        when(dto.getRoleId())
                 .thenReturn(1);
 
         boolean result =
@@ -164,10 +164,10 @@ class UserAuthorizationTest {
         when(loginUser.getDepartmentId())
                 .thenReturn(1);
 
-        when(dto.getDepartment_id())
+        when(dto.getDepartmentId())
                 .thenReturn(1);
 
-        when(dto.getRole_id())
+        when(dto.getRoleId())
                 .thenReturn(2);
 
         boolean result =

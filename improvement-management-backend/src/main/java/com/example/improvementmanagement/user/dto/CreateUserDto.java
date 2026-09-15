@@ -9,15 +9,15 @@ public class CreateUserDto {
 
     private String employeeNo;
     private String name; 
-    private Integer department_id;
-    private Integer role_id;
+    private Integer departmentId;
+    private Integer roleId;
     private String password;
 
-    public CreateUserDto(String employeeNo, String name, Integer department_id, Integer role_id, String password){
+    public CreateUserDto(String employeeNo, String name, Integer departmentId, Integer roleId, String password){
         this.employeeNo = employeeNo;
         this.name = name;
-        this.department_id = department_id;
-        this.role_id = role_id;
+        this.departmentId = departmentId;
+        this.roleId = roleId;
         this.password = password;
     }
 
@@ -31,13 +31,13 @@ public class CreateUserDto {
     }
     @NotNull
     @Positive
-    public Integer getDepartment_id(){
-        return department_id;
+    public Integer getDepartmentId(){
+        return departmentId;
     }
     @NotNull
     @Positive
-    public Integer getRole_id(){
-        return role_id;
+    public Integer getRoleId(){
+        return roleId;
     }
     @NotBlank
     @Size(min = 8)
