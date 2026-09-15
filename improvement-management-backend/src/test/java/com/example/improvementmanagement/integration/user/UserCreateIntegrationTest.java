@@ -54,8 +54,8 @@ void システム管理者はユーザー作成可能() throws Exception {
             {
                 "employeeNo": "test0001",
                 "name": "テストユーザー",
-                "department_id": 1,
-                "role_id": 2,
+                "departmentId": 1,
+                "roleId": 2,
                 "password": "test1234"
             }
             """))
@@ -95,8 +95,8 @@ void 指導員は自部署のリリーフユーザー作成可能() throws Excep
             {
                 "employeeNo": "test0001",
                 "name": "テストユーザー",
-                "department_id": 1,
-                "role_id": 3,
+                "departmentId": 1,
+                "roleId": 3,
                 "password": "test1234"
             }
             """))
@@ -136,8 +136,8 @@ void 指導員は自部署の作業者ユーザー作成可能() throws Exceptio
             {
                 "employeeNo": "test0001",
                 "name": "テストユーザー",
-                "department_id": 1,
-                "role_id": 4,
+                "departmentId": 1,
+                "roleId": 4,
                 "password": "test1234"
             }
             """))
@@ -177,8 +177,8 @@ void 指導員は他部署ユーザー作成できない() throws Exception {
             {
                 "employeeNo": "test0001",
                 "name": "テストユーザー",
-                "department_id": 2,
-                "role_id": 3,
+                "departmentId": 2,
+                "roleId": 3,
                 "password": "test1234"
             }
             """))
@@ -207,8 +207,8 @@ void 指導員は他部署ユーザー作成できない() throws Exception {
             {
                 "employeeNo": "test0001",
                 "name": "テストユーザー",
-                "department_id": 1,
-                "role_id": 1,
+                "departmentId": 1,
+                "roleId": 1,
                 "password": "test1234"
             }
             """))
@@ -237,8 +237,8 @@ void 指導員は他部署ユーザー作成できない() throws Exception {
             {
                 "employeeNo": "test0001",
                 "name": "テストユーザー",
-                "department_id": 1,
-                "role_id": 2,
+                "departmentId": 1,
+                "roleId": 2,
                 "password": "test1234"
             }
             """))
@@ -267,8 +267,8 @@ void 指導員は他部署ユーザー作成できない() throws Exception {
             {
                 "employeeNo": "test0001",
                 "name": "テストユーザー",
-                "department_id": 1,
-                "role_id": 3,
+                "departmentId": 1,
+                "roleId": 3,
                 "password": "test1234"
             }
             """))
