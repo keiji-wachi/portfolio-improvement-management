@@ -1,0 +1,129 @@
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #111827;
+  color: white;
+}
+
+.sidebar-header {
+  padding: 24px 20px;
+  border-bottom: 1px solid #263244;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.sidebar-header p {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* メニュー */
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  padding: 24px 16px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 12px 14px;
+
+  border-radius: 8px;
+
+  color: #cbd5e1;
+  text-decoration: none;
+
+  transition: 0.2s;
+}
+
+.sidebar-link:hover {
+  background-color: #1f2937;
+  color: white;
+}
+
+.sidebar-link.active {
+  background-color: #2563eb;
+  color: white;
+}
+
+.sidebar-icon {
+  width: 24px;
+  text-align: center;
+}
+
+/* 下部 */
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 20px 16px;
+  border-top: 1px solid #263244;
+}
+.login-user {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.login-user-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: #2563eb;
+
+  font-weight: bold;
+}
+
+.login-user-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.login-user-detail {
+  margin: 4px 0 0;
+
+  font-size: 12px;
+
+  color: #94a3b8;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #cbd5e1;
+  text-align: left;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #1f2937;
+  color: #fff;
+}

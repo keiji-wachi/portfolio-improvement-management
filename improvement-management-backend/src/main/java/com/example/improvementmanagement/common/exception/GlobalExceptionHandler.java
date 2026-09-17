@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -96,6 +97,22 @@ public class GlobalExceptionHandler {
                 .body(response);
     }
 
+        @ExceptionHandler(BadCredentialsException.class)
+                public ResponseEntity<ErrorResponse> handleBadCredentials(
+                        BadCredentialsException ex) {
+
+                ErrorResponse errorResponse = new ErrorResponse(
+                        HttpStatus.UNAUTHORIZED.value(),
+                        HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                        "社員番号またはパスワードが正しくありません"
+                );
+
+                return ResponseEntity
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .body(errorResponse);
+        }
+
+        
     // 想定外の例外
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception ex) {

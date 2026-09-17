@@ -58,12 +58,15 @@ const userUpdate = async () => {
     showToast("ユーザーを更新しました");
 
     onUpdated();
-  } catch (error) {
+  }catch (error) {
     if (error instanceof ApiError && error.status === 400) {
       setErrorMessage(error.message);
-      handleApiError(error);
+      setIsConfirmOpen(false);
       return;
     }
+
+    handleApiError(error);
+
   } finally {
     setIsLoading(false);
   }
@@ -72,6 +75,8 @@ const userUpdate = async () => {
   return (
     <div>
       <h2>編集フォーム</h2>
+
+      <ErrorMessage message={errorMessage} />
 
       <div>
         <label>名前</label>

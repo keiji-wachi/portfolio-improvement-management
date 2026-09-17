@@ -1,0 +1,127 @@
+.user-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.user-page-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.user-page-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.create-user-button {
+  padding: 12px 18px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #2563eb;
+  color: white;
+
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.create-user-button:hover {
+  background-color: #1d4ed8;
+}
+
+
+.user-list-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th {
+  padding: 16px 20px;
+
+  background-color: #f8fafc;
+
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+
+  text-align: left;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.user-table td {
+  padding: 16px 20px;
+
+  color: #1e293b;
+  font-size: 14px;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.user-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.user-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.user-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-button,
+.delete-button {
+  padding: 6px 12px;
+
+  border-radius: 6px;
+
+  font-size: 13px;
+
+  cursor: pointer;
+}
+
+.edit-button {
+  border: 1px solid #2563eb;
+
+  background-color: #ffffff;
+  color: #2563eb;
+}
+
+.edit-button:hover {
+  background-color: #eff6ff;
+}
+
+.delete-button {
+  border: 1px solid #dc2626;
+
+  background-color: #ffffff;
+  color: #dc2626;
+}
+
+.delete-button:hover {
+  background-color: #fef2f2;
+}
+
+.delete-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.self-label {
+  color: #94a3b8;
+  font-size: 13px;
+}
