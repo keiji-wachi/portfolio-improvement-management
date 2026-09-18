@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import "../../styles/common/ConfirmDialog.css";
 
 type Props = {
   open: boolean;
@@ -28,33 +27,45 @@ function ConfirmDialog({
     return null;
   }
 
- return (
-  <div className="confirm-dialog-overlay">
-    <div className="confirm-dialog">
-      <h3>{title}</h3>
+  return (
+    <div className="confirm-dialog-overlay">
+      <div className="confirm-dialog">
 
-      {message && <p>{message}</p>}
+        <div className="confirm-dialog-header">
+          <h3>{title}</h3>
 
-      {children}
+          {message && (
+            <p>{message}</p>
+          )}
+        </div>
 
-      <div className="confirm-dialog-actions">
-        <button
-          onClick={onCancel}
-          disabled={isLoading}
-        >
-          {cancelText}
-        </button>
+        <div className="confirm-dialog-body">
+          {children}
+        </div>
 
-        <button
-          onClick={onConfirm}
-          disabled={isLoading}
-        >
-          {isLoading ? "処理中..." : confirmText}
-        </button>
+        <div className="confirm-dialog-actions">
+          <button
+            type="button"
+            className="btn-secondary"
+            onClick={onCancel}
+            disabled={isLoading}
+          >
+            {cancelText}
+          </button>
+
+          <button
+            type="button"
+            className="btn-primary"
+            onClick={onConfirm}
+            disabled={isLoading}
+          >
+            {isLoading ? "処理中..." : confirmText}
+          </button>
+        </div>
+
       </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default ConfirmDialog;

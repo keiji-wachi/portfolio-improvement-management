@@ -54,12 +54,14 @@ public class LoginRequestService {
     CustomUserDetails userDetails =
             (CustomUserDetails) authentication.getPrincipal();
 
-    return new LoginResponseDto(
-            userDetails.getUserId(),
-            userDetails.getDepartmentId(),
-            userDetails.getRoleId(),
-            userDetails.getFirstLoginFlag(),
-            true
-    );
-}
+        return new LoginResponseDto(
+                userDetails.getUserId(),
+                userDetails.getName(),
+                userDetails.getDepartmentId(),
+                userDetails.getDepartmentName(),
+                userDetails.getRoleId(),
+                userDetails.getFirstLoginFlag(),
+                true
+        );
+        }
 }  

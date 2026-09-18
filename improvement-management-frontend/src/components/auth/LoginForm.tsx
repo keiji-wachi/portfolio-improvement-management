@@ -125,10 +125,10 @@ function LoginForm() {
         </div>
 
       <button
-        className="login-button"
+        className="btn-primary"
         type="submit"
         disabled={isLoading}
-        >{isLoading ? ("ログイン中...") : (<>ログイン<span className="login-button-arrow">→</span></>)}
+        >{isLoading ? ("ログイン中...") : (<>ログイン<span className="btn-arrow">→</span></>)}
       </button>
       </form>
     </div>

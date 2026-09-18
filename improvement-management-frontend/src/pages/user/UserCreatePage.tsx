@@ -7,6 +7,8 @@ import { getDepartments, getRoles } from "../../api/master/masterApi";
 import UserCreateForm from "../../components/user/UserForm";
 import { useApiErrorHandler } from "../../hooks/api/useApiErrorHandler";
 
+import { UserPlus } from "lucide-react";
+
 function UserCreatePage() {
   const [departments, setDepartments] = useState<Department[]>([]);
   const [roles, setRoles] = useState<Role[]>([]);
@@ -36,17 +38,30 @@ const handleCreated = () => {
   navigate("/users");
 };
 
-  return (
-    <main>
-      <h1>ユーザー登録</h1>
+return (
+  <main>
+    <div className="page-container">
+
+<div className="page-header">
+  <div className="page-header-icon">
+    <UserPlus />
+  </div>
+
+  <div>
+    <h1>ユーザー登録</h1>
+    <p>ユーザー情報を登録します</p>
+  </div>
+</div>
 
       <UserCreateForm
         onCreated={handleCreated}
         departments={departments}
         roles={roles}
       />
-    </main>
-  );
+
+    </div>
+  </main>
+);
 }
 
 export default UserCreatePage;

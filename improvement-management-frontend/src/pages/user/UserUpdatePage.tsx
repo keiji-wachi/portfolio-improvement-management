@@ -9,6 +9,8 @@ import { getDepartments, getRoles } from "../../api/master/masterApi";
 import { getUserById } from "../../api/user/userApi";
 import { useApiErrorHandler } from "../../hooks/api/useApiErrorHandler";
 
+import { UserPen } from "lucide-react";
+
 function UserUpdatePage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -46,9 +48,20 @@ useEffect(() => {
     navigate("/users");
   };
 
-  return (
-    <main>
-      <h1>ユーザー更新</h1>
+return (
+  <main>
+    <div className="page-container">
+
+      <div className="page-header">
+      <div className="page-header-icon">
+        <UserPen />
+      </div>
+
+        <div>
+          <h1>ユーザー更新</h1>
+          <p>ユーザー情報を編集します</p>
+        </div>
+      </div>
 
       <UserUpdateForm
         user={user}
@@ -56,8 +69,10 @@ useEffect(() => {
         departments={departments}
         roles={roles}
       />
-    </main>
-  );
+
+    </div>
+  </main>
+);
 }
 
 export default UserUpdatePage;

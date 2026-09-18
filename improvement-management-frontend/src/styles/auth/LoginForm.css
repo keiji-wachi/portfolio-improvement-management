@@ -71,27 +71,6 @@
   font-size: 13px;
 }
 
-.login-button {
-  height: 48px;
-  border: none;
-  border-radius: 10px;
-
-  background: linear-gradient(
-    90deg,
-    #4776ff,
-    #a020f0
-  );
-
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.login-button-arrow {
-  margin-left: 8px;
-}
-
 .error-message {
   margin: 24px 0 18px;
   color: #dc2626;

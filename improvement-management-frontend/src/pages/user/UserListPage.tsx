@@ -8,6 +8,10 @@ import type { User } from "../../types/user";
 import { useApiErrorHandler } from "../../hooks/api/useApiErrorHandler";
 import { AuthContext } from "../../context/auth/AuthContext";
 
+import { Users } from "lucide-react";
+
+import "../../styles/user/UserList.css";
+
 function UserListPage() {
   const [users, setUsers] = useState<User[]>([]);
   const navigate = useNavigate();
@@ -45,8 +49,32 @@ if (auth?.loginUser) {
   console.log("loginUser:", auth.loginUser);
 
 
-  return (
-    <main>
+return (
+  <main>
+    <div className="page-container-wide">
+
+      <div className="page-header page-header-with-action">
+
+        <div className="page-header-main">
+          <div className="page-header-icon">
+            <Users/>
+          </div>
+
+          <div>
+            <h1>ユーザー管理</h1>
+            <p>登録されているユーザーの一覧</p>
+          </div>
+        </div>
+
+        <button
+          className="btn-primary"
+          onClick={() => navigate("/users/new")}
+        >
+          ＋ 新規ユーザー作成
+        </button>
+
+      </div>
+
       <UserList
         users={users}
         loginUserId={auth.loginUser.userId}
@@ -54,8 +82,10 @@ if (auth?.loginUser) {
         onEdit={handleEdit}
         onDeleted={fetchUsers}
       />
-    </main>
-  );
+
+    </div>
+  </main>
+);
 }
 
 export default UserListPage;
