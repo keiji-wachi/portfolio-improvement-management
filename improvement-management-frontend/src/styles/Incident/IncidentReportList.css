@@ -218,12 +218,28 @@
   font-size: 13px;
 }
 
+
+/* =========================
+   テーブルスクロール領域
+========================= */
+
 .statistics-table-wrapper {
+  width: 100%;
+
   overflow-x: auto;
+
+  -webkit-overflow-scrolling: touch;
 }
+
+
+/* =========================
+   テーブル
+========================= */
 
 .statistics-table {
   width: 100%;
+
+  min-width: 900px;
 
   border-collapse: collapse;
 }
@@ -240,6 +256,8 @@
 
   text-align: left;
 
+  white-space: nowrap;
+
   border-bottom:
     1px solid #e2e8f0;
 }
@@ -251,8 +269,21 @@
 
   font-size: 14px;
 
+  white-space: nowrap;
+
   border-bottom:
     1px solid #e2e8f0;
+}
+
+
+/* 詳細・対応内容だけ折り返し可能 */
+.statistics-table th:nth-child(5),
+.statistics-table td:nth-child(5),
+.statistics-table th:nth-child(6),
+.statistics-table td:nth-child(6) {
+  min-width: 180px;
+
+  white-space: normal;
 }
 
 .statistics-table tbody tr:hover {
@@ -265,29 +296,210 @@
 
 
 /* =========================
+   一覧フィルター
+========================= */
+
+.statistics-list-filter {
+  display: flex;
+  align-items: flex-end;
+
+  gap: 16px;
+
+  padding: 20px 24px;
+
+  background: #ffffff;
+
+  border-bottom:
+    1px solid #e2e8f0;
+}
+
+.statistics-list-filter
+.statistics-filter-group {
+  flex: 1;
+}
+
+.statistics-list-filter input,
+.statistics-list-filter select {
+  width: 100%;
+  height: 44px;
+
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #1e293b;
+
+  font-size: 14px;
+}
+
+.statistics-list-filter input:focus,
+.statistics-list-filter select:focus {
+  outline: none;
+
+  border-color: #3b82f6;
+}
+
+.statistics-list-filter .btn-secondary {
+  height: 44px;
+
+  padding: 0 18px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+}
+
+.statistics-list-filter
+.btn-secondary:hover {
+  background: #f8fafc;
+}
+
+
+/* =========================
    レスポンシブ
 ========================= */
 
 @media (max-width: 800px) {
 
+  .statistics-content {
+    gap: 20px;
+  }
+
+
+  /* -------------------------
+     検索条件
+  ------------------------- */
+
+  .statistics-filter-body {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    padding: 20px 16px;
+  }
+
+  .statistics-filter-group {
+    width: 100%;
+  }
+
+  .statistics-filter-body
+  .btn-primary {
+    width: 100%;
+  }
+
+
+  /* -------------------------
+     KPI
+  ------------------------- */
+
   .statistics-summary {
     grid-template-columns: 1fr;
+
+    gap: 20px;
   }
+
+  .statistics-summary-card {
+    padding: 20px;
+  }
+
+
+  /* -------------------------
+     グラフ
+  ------------------------- */
 
   .statistics-chart-grid {
     grid-template-columns: 1fr;
+
+    gap: 20px;
   }
 
   .statistics-chart-wide {
     grid-column: auto;
   }
 
-  .statistics-filter-body {
-    flex-direction: column;
-    align-items: stretch;
+  .statistics-chart-body {
+    padding: 16px;
   }
 
-  .statistics-filter-body .btn-primary {
+  .statistics-chart {
+    height: 280px;
+  }
+
+  .statistics-empty {
+    height: 280px;
+  }
+
+
+  /* -------------------------
+     一覧フィルター
+  ------------------------- */
+
+  .statistics-list-filter {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    padding: 20px 16px;
+  }
+
+  .statistics-list-filter
+  .statistics-filter-group {
     width: 100%;
   }
+
+  .statistics-list-filter
+  .btn-secondary {
+    width: 100%;
+  }
+
+
+  /* -------------------------
+     一覧ヘッダー
+  ------------------------- */
+
+  .statistics-table-header {
+    padding: 14px 18px;
+  }
+
+  .statistics-table-header h2 {
+    font-size: 15px;
+  }
+
+
+  /* -------------------------
+     テーブル
+     スマホでは縮めず横スクロール
+  ------------------------- */
+
+  .statistics-table {
+    min-width: 900px;
+  }
+
+  .statistics-table th {
+    padding: 14px 16px;
+
+    font-size: 13px;
+  }
+
+  .statistics-table td {
+    padding: 14px 16px;
+
+    font-size: 13px;
+  }
+
 }

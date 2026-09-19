@@ -11,3 +11,34 @@
   padding: 32px;
   box-sizing: border-box;
 }
+
+/* =========================
+   レスポンシブ
+========================= */
+
+@media (max-width: 800px) {
+
+  .app-layout {
+    min-height: 100vh;
+  }
+
+
+  .main-content {
+    margin-left: 0;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding: 24px 16px 96px;
+
+    box-sizing: border-box;
+  }
+
+
+  .page-container {
+    width: 100%;
+    max-width: none;
+  }
+
+}

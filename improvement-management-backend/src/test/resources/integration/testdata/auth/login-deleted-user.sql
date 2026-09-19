@@ -1,3 +1,13 @@
+INSERT INTO department_mst (
+    department_id,
+    department_name
+)
+VALUES (
+    1,
+    'プレス部署'
+);
+
+
 INSERT INTO user_mst (
     id,
     name,

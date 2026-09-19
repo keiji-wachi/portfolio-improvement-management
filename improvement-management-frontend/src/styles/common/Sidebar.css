@@ -164,3 +164,107 @@
   text-align: left;
   cursor: pointer;
 }
+
+/* =========================
+   スマホ用 下部ナビ
+========================= */
+
+@media (max-width: 800px) {
+
+  .sidebar {
+    top: auto;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 72px;
+
+    flex-direction: row;
+
+    background: linear-gradient(
+      90deg,
+      #0f172a 0%,
+      #111827 55%,
+      #1e1b4b 100%
+    );
+
+    z-index: 1000;
+  }
+
+
+  /* ロゴ部分はスマホでは非表示 */
+  .sidebar-header {
+    display: none;
+  }
+
+
+  /* ユーザー情報・ログアウトも一旦非表示 */
+  .sidebar-footer {
+    display: none;
+  }
+
+
+  /* ナビを横並び */
+  .sidebar-nav {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-around;
+
+    gap: 4px;
+
+    padding: 8px 12px;
+
+    overflow: visible;
+  }
+
+
+  .sidebar-link {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    padding: 7px 4px;
+
+    border-radius: 10px;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+  }
+
+
+  .sidebar-link:hover {
+    background: transparent;
+  }
+
+
+  .sidebar-link.active {
+    background: linear-gradient(
+      135deg,
+      #4776ff,
+      #a020f0
+    );
+
+    color: #ffffff;
+
+    box-shadow:
+      0 4px 12px rgba(71, 118, 255, 0.25);
+  }
+
+
+  .sidebar-icon {
+    width: auto;
+    height: 20px;
+  }
+
+}
