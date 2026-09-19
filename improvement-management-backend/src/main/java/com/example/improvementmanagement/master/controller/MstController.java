@@ -12,7 +12,6 @@ import com.example.improvementmanagement.master.service.MstService;
 import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/msts")
-@CrossOrigin(origins = "http://localhost:5173",allowCredentials = "true")
 
 public class MstController {
     
