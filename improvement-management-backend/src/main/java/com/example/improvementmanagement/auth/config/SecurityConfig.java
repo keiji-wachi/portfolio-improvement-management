@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.example.improvementmanagement.auth.security.CustomUserDetailsService;
 
-@EnableMethodSecurity 
+@EnableMethodSecurity
 @Configuration
 public class SecurityConfig {
 
@@ -24,29 +24,49 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-        .cors(cors -> {})
-        .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/login","/msts/roles","/msts/departments").permitAll()
-            .anyRequest().authenticated()
-        );
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http) throws Exception {
+
+        http
+            .cors(cors -> {})
+            .csrf(csrf -> csrf.disable())
+            .logout(logout -> logout.disable())
+
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                    "/login",
+                    "/logout",
+                    "/msts/roles",
+                    "/msts/departments"
+                )
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+            );
 
         return http.build();
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(CustomUserDetailsService customUserDetailsService,PasswordEncoder passwordEncoder) {
+    public AuthenticationProvider authenticationProvider(
+            CustomUserDetailsService customUserDetailsService,
+            PasswordEncoder passwordEncoder) {
 
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(customUserDetailsService);
+        DaoAuthenticationProvider provider =
+            new DaoAuthenticationProvider(
+                customUserDetailsService
+            );
+
         provider.setPasswordEncoder(passwordEncoder);
 
         return provider;
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration configuration)
+            throws Exception {
+
         return configuration.getAuthenticationManager();
     }
 }

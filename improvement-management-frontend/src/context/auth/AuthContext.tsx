@@ -1,28 +1,60 @@
-import { createContext, useState } from "react";
-import type { ReactNode } from "react";
-import type { LoginUser } from "../../types/auth";
+import {
+  createContext,
+  useState,
+} from "react";
+
+import type {
+  ReactNode,
+} from "react";
+
+import type {
+  LoginUser,
+} from "../../types/auth";
 
 type AuthContextType = {
+
   loginUser: LoginUser | null;
-  setLoginUser: React.Dispatch<React.SetStateAction<LoginUser | null>>;
+
+  setLoginUser:
+    React.Dispatch<
+      React.SetStateAction<
+        LoginUser | null
+      >
+    >;
+
+  clearLoginUser: () => void;
 };
 
-export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined
-);
+export const AuthContext =
+  createContext<
+    AuthContextType | undefined
+  >(undefined);
 
 type Props = {
   children: ReactNode;
 };
 
-export function AuthProvider({ children }: Props) {
-  const [loginUser, setLoginUser] = useState<LoginUser | null>(null);
+export function AuthProvider({
+  children,
+}: Props) {
+
+  const [
+    loginUser,
+    setLoginUser,
+  ] = useState<LoginUser | null>(
+    null
+  );
+
+  const clearLoginUser = () => {
+    setLoginUser(null);
+  };
 
   return (
     <AuthContext.Provider
       value={{
         loginUser,
         setLoginUser,
+        clearLoginUser,
       }}
     >
       {children}

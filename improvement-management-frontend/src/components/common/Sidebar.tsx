@@ -1,5 +1,17 @@
-import { NavLink } from "react-router-dom";
+import {
+  NavLink,
+  useNavigate,
+} from "react-router-dom";
+
+import {
+  useState,
+} from "react";
+
 import { useAuth } from "../../hooks/auth/useAuth";
+import { useApiErrorHandler } from "../../hooks/api/useApiErrorHandler";
+
+import { logout } from "../../api/auth/authApi";
+
 import {
   Factory,
   Users,
@@ -10,36 +22,102 @@ import {
 
 import "../../styles/common/Sidebar.css";
 
+
 function Sidebar() {
-  const { loginUser } = useAuth();
+
+  const {
+    loginUser,
+    clearLoginUser,
+  } = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleApiError =
+    useApiErrorHandler();
+
+  const [
+    isLoggingOut,
+    setIsLoggingOut,
+  ] = useState(false);
+
+
+  const handleLogout = async () => {
+
+    if (isLoggingOut) {
+      return;
+    }
+
+    setIsLoggingOut(true);
+
+    try {
+
+      await logout();
+
+      clearLoginUser();
+
+      navigate(
+        "/login",
+        {
+          replace: true,
+        }
+      );
+
+    } catch (error) {
+
+      handleApiError(error);
+
+    } finally {
+
+      setIsLoggingOut(false);
+
+    }
+  };
+
 
   return (
     <aside className="sidebar">
 
-<div className="sidebar-header">
-  <div className="sidebar-brand">
-    <Factory size={24} />
+      <div className="sidebar-header">
 
-    <div>
-      <h2>改善管理システム</h2>
-      <p>管理パネル</p>
-    </div>
-  </div>
-</div>
+        <div className="sidebar-brand">
+
+          <Factory size={24} />
+
+          <div>
+            <h2>
+              改善管理システム
+            </h2>
+
+            <p>
+              管理パネル
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
 
       <nav className="sidebar-nav">
 
-<NavLink
-  to="/users"
-  className={({ isActive }) =>
-    isActive
-      ? "sidebar-link active"
-      : "sidebar-link"
-  }
->
-  <Users className="sidebar-icon" size={20} />
-  <span>ユーザー管理</span>
-</NavLink>
+        <NavLink
+          to="/users"
+          className={({ isActive }) =>
+            isActive
+              ? "sidebar-link active"
+              : "sidebar-link"
+          }
+        >
+          <Users
+            className="sidebar-icon"
+            size={20}
+          />
+
+          <span>
+            ユーザー管理
+          </span>
+        </NavLink>
+
 
         <NavLink
           to="/incidents"
@@ -49,9 +127,16 @@ function Sidebar() {
               : "sidebar-link"
           }
         >
-          <TriangleAlert className="sidebar-icon" size={20} />
-            <span>異常対応入力</span>
+          <TriangleAlert
+            className="sidebar-icon"
+            size={20}
+          />
+
+          <span>
+            異常対応入力
+          </span>
         </NavLink>
+
 
         <NavLink
           to="/statistics"
@@ -61,11 +146,42 @@ function Sidebar() {
               : "sidebar-link"
           }
         >
-          <ChartNoAxesCombined className="sidebar-icon" size={20} />
-            <span>データ分析</span>
+          <ChartNoAxesCombined
+            className="sidebar-icon"
+            size={20}
+          />
+
+          <span>
+            データ分析
+          </span>
         </NavLink>
 
+
+        {/* スマートフォン用ログアウト */}
+
+        <button
+          type="button"
+          className="
+            sidebar-link
+            sidebar-mobile-logout
+          "
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+        >
+          <LogOut
+            className="sidebar-icon"
+            size={20}
+          />
+
+          <span>
+            {isLoggingOut
+              ? "処理中..."
+              : "ログアウト"}
+          </span>
+        </button>
+
       </nav>
+
 
       <div className="sidebar-footer">
 
@@ -76,6 +192,7 @@ function Sidebar() {
           </div>
 
           <div>
+
             <p className="login-user-name">
               {loginUser?.name}
             </p>
@@ -83,15 +200,29 @@ function Sidebar() {
             <p className="login-user-detail">
               {loginUser?.departmentName}
             </p>
+
           </div>
 
         </div>
 
-        <button className="logout-button">
+
+        <button
+          type="button"
+          className="logout-button"
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+        >
           <LogOut size={18} />
-            <span>ログアウト</span>
+
+          <span>
+            {isLoggingOut
+              ? "処理中..."
+              : "ログアウト"}
+          </span>
         </button>
+
       </div>
+
     </aside>
   );
 }

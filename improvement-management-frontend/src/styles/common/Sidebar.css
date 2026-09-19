@@ -166,6 +166,34 @@
 }
 
 /* =========================
+   モバイル用ログアウト
+========================= */
+
+.sidebar-mobile-logout {
+  display: none;
+
+  border: none;
+
+  background: transparent;
+
+  color: #cbd5e1;
+
+  font-family: inherit;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.logout-button:disabled,
+.sidebar-mobile-logout:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* =========================
    スマホ用 下部ナビ
 ========================= */
 
@@ -267,4 +295,23 @@
     height: 20px;
   }
 
+  .sidebar-mobile-logout {
+  display: flex;
 }
+
+  .sidebar-mobile-logout {
+    display: flex;
+
+    background: transparent;
+
+    color: #cbd5e1;
+  }
+
+  .sidebar-mobile-logout:hover {
+    background: transparent;
+
+    color: #ffffff;
+  }
+
+}
+
