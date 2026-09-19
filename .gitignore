@@ -2,11 +2,13 @@
 .vscode/
 
 # React
-portfolio-frontend/node_modules/
-portfolio-frontend/dist/
+improvement-management-frontend/node_modules/
+improvement-management-frontend/dist/
+improvement-management-frontend/.env
+improvement-management-frontend/.env.local
 
 # Spring Boot
-demo/target/
+improvement-management-backend/target/
 
 # OS
 .DS_Store
