@@ -1,6 +1,12 @@
 export type LoginUser = {
-  id: number;
-  department_id: number;
-  role_id: number;
-  succes: boolean;
-}
+  userId: number;
+  name: string;
+
+  departmentId: number;
+  departmentName: string;
+
+  roleId: number;
+
+  firstLoginFlag: boolean;
+  success: boolean;
+};

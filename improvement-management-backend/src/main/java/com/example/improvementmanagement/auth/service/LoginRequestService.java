@@ -1,7 +1,6 @@
 package com.example.improvementmanagement.auth.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -26,53 +25,43 @@ public class LoginRequestService {
         this.authenticationManager = authenticationManager;
     }
 
-    public LoginResponseDto loginAuth(
+   public LoginResponseDto loginAuth(
         LoginRequestDto dto,
         HttpServletRequest request,
         HttpServletResponse response) {
 
-    try {
-        Authentication authentication =
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                dto.getEmployeeNo(),
-                                dto.getPassWord()
-                        )
-                );
+    Authentication authentication =
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            dto.getEmployeeNo(),
+                            dto.getPassWord()
+                    )
+            );
 
-        SecurityContext context =
-                SecurityContextHolder.createEmptyContext();
+    SecurityContext context =
+            SecurityContextHolder.createEmptyContext();
 
-        context.setAuthentication(authentication);
-        SecurityContextHolder.setContext(context);
+    context.setAuthentication(authentication);
+    SecurityContextHolder.setContext(context);
 
-        HttpSession session = request.getSession(true);
+    HttpSession session = request.getSession(true);
 
-        session.setAttribute(
-                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-                context
-        );
+    session.setAttribute(
+            HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+            context
+    );
 
-        CustomUserDetails userDetails =
-                (CustomUserDetails) authentication.getPrincipal();
+    CustomUserDetails userDetails =
+            (CustomUserDetails) authentication.getPrincipal();
 
         return new LoginResponseDto(
                 userDetails.getUserId(),
+                userDetails.getName(),
                 userDetails.getDepartmentId(),
+                userDetails.getDepartmentName(),
                 userDetails.getRoleId(),
                 userDetails.getFirstLoginFlag(),
                 true
         );
-
-    } catch (BadCredentialsException e) {
-
-        return new LoginResponseDto(
-                null,
-                null,
-                null,
-                false,
-                false
-        );
-    }
-    }  
-}
+        }
+}  

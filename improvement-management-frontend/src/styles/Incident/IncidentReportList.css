@@ -1,0 +1,505 @@
+.statistics-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+
+/* =========================
+   共通カードヘッダー
+========================= */
+
+.statistics-card-header {
+  padding: 16px 24px;
+
+  background: linear-gradient(
+    90deg,
+    #0f172a,
+    #172554
+  );
+
+  color: #ffffff;
+}
+
+.statistics-card-header h2 {
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+
+/* =========================
+   検索条件
+========================= */
+
+.statistics-filter-card {
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  overflow: hidden;
+}
+
+.statistics-filter-body {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+
+  padding: 20px 24px;
+}
+
+.statistics-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.statistics-filter-group label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.statistics-filter-group input {
+  height: 48px;
+
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  font-size: 15px;
+}
+
+
+/* =========================
+   KPI
+========================= */
+
+.statistics-summary {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 24px;
+}
+
+.statistics-summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  padding: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.statistics-summary-label {
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+.statistics-summary-value {
+  font-size: 32px;
+
+  line-height: 1.2;
+}
+
+.statistics-summary-unit {
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   グラフ
+========================= */
+
+.statistics-chart-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 24px;
+}
+
+.statistics-chart-card {
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.statistics-chart-body {
+  padding: 24px;
+}
+
+.statistics-chart {
+  width: 100%;
+  height: 320px;
+}
+
+.statistics-chart-wide {
+  grid-column: 1 / -1;
+}
+
+.statistics-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 320px;
+
+  margin: 0;
+
+  color: #94a3b8;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   一覧
+========================= */
+
+.statistics-table-card {
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  overflow: hidden;
+}
+
+.statistics-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px 24px;
+
+  background: linear-gradient(
+    90deg,
+    #0f172a,
+    #172554
+  );
+
+  color: #ffffff;
+}
+
+.statistics-table-header h2 {
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.statistics-table-header span {
+  color: #cbd5e1;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   テーブルスクロール領域
+========================= */
+
+.statistics-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* =========================
+   テーブル
+========================= */
+
+.statistics-table {
+  width: 100%;
+
+  min-width: 900px;
+
+  border-collapse: collapse;
+}
+
+.statistics-table th {
+  padding: 16px 20px;
+
+  background: #f8fafc;
+
+  color: #475569;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-align: left;
+
+  white-space: nowrap;
+
+  border-bottom:
+    1px solid #e2e8f0;
+}
+
+.statistics-table td {
+  padding: 16px 20px;
+
+  color: #1e293b;
+
+  font-size: 14px;
+
+  white-space: nowrap;
+
+  border-bottom:
+    1px solid #e2e8f0;
+}
+
+
+/* 詳細・対応内容だけ折り返し可能 */
+.statistics-table th:nth-child(5),
+.statistics-table td:nth-child(5),
+.statistics-table th:nth-child(6),
+.statistics-table td:nth-child(6) {
+  min-width: 180px;
+
+  white-space: normal;
+}
+
+.statistics-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.statistics-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =========================
+   一覧フィルター
+========================= */
+
+.statistics-list-filter {
+  display: flex;
+  align-items: flex-end;
+
+  gap: 16px;
+
+  padding: 20px 24px;
+
+  background: #ffffff;
+
+  border-bottom:
+    1px solid #e2e8f0;
+}
+
+.statistics-list-filter
+.statistics-filter-group {
+  flex: 1;
+}
+
+.statistics-list-filter input,
+.statistics-list-filter select {
+  width: 100%;
+  height: 44px;
+
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #1e293b;
+
+  font-size: 14px;
+}
+
+.statistics-list-filter input:focus,
+.statistics-list-filter select:focus {
+  outline: none;
+
+  border-color: #3b82f6;
+}
+
+.statistics-list-filter .btn-secondary {
+  height: 44px;
+
+  padding: 0 18px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+}
+
+.statistics-list-filter
+.btn-secondary:hover {
+  background: #f8fafc;
+}
+
+
+/* =========================
+   レスポンシブ
+========================= */
+
+@media (max-width: 800px) {
+
+  .statistics-content {
+    gap: 20px;
+  }
+
+
+  /* -------------------------
+     検索条件
+  ------------------------- */
+
+  .statistics-filter-body {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    padding: 20px 16px;
+  }
+
+  .statistics-filter-group {
+    width: 100%;
+  }
+
+  .statistics-filter-body
+  .btn-primary {
+    width: 100%;
+  }
+
+
+  /* -------------------------
+     KPI
+  ------------------------- */
+
+  .statistics-summary {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+  }
+
+  .statistics-summary-card {
+    padding: 20px;
+  }
+
+
+  /* -------------------------
+     グラフ
+  ------------------------- */
+
+  .statistics-chart-grid {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+  }
+
+  .statistics-chart-wide {
+    grid-column: auto;
+  }
+
+  .statistics-chart-body {
+    padding: 16px;
+  }
+
+  .statistics-chart {
+    height: 280px;
+  }
+
+  .statistics-empty {
+    height: 280px;
+  }
+
+
+  /* -------------------------
+     一覧フィルター
+  ------------------------- */
+
+  .statistics-list-filter {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    padding: 20px 16px;
+  }
+
+  .statistics-list-filter
+  .statistics-filter-group {
+    width: 100%;
+  }
+
+  .statistics-list-filter
+  .btn-secondary {
+    width: 100%;
+  }
+
+
+  /* -------------------------
+     一覧ヘッダー
+  ------------------------- */
+
+  .statistics-table-header {
+    padding: 14px 18px;
+  }
+
+  .statistics-table-header h2 {
+    font-size: 15px;
+  }
+
+
+  /* -------------------------
+     テーブル
+     スマホでは縮めず横スクロール
+  ------------------------- */
+
+  .statistics-table {
+    min-width: 900px;
+  }
+
+  .statistics-table th {
+    padding: 14px 16px;
+
+    font-size: 13px;
+  }
+
+  .statistics-table td {
+    padding: 14px 16px;
+
+    font-size: 13px;
+  }
+
+}

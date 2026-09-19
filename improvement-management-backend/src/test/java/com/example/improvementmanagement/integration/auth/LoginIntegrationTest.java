@@ -54,8 +54,10 @@ class LoginIntegrationTest {
                   "password": "test1234"
                 }
                 """))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.success").value(false));
+            .andExpect(status().isUnauthorized())
+            .andExpect(jsonPath("$.status").value(401))
+            .andExpect(jsonPath("$.error").value("Unauthorized"))
+            .andExpect(jsonPath("$.message").value("社員番号またはパスワードが正しくありません"));
     }
 
     @Test
@@ -70,8 +72,10 @@ class LoginIntegrationTest {
                   "password": "bad-password"
                 }
                 """))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.success").value(false));
+            .andExpect(status().isUnauthorized())
+            .andExpect(jsonPath("$.status").value(401))
+            .andExpect(jsonPath("$.error").value("Unauthorized"))
+            .andExpect(jsonPath("$.message").value("社員番号またはパスワードが正しくありません"));
     }
 
     @Test
@@ -86,8 +90,10 @@ class LoginIntegrationTest {
                   "password": "test1234"
                 }
                 """))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.success").value(false));
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.status").value(401))
+                .andExpect(jsonPath("$.error").value("Unauthorized"))
+                .andExpect(jsonPath("$.message").value("社員番号またはパスワードが正しくありません"));
     }
 }
 
