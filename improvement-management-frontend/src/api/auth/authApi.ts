@@ -23,3 +23,12 @@ export async function logout(): Promise<void> {
     method: "POST",
   });
 }
+
+export async function getCurrentUser():
+  Promise<LoginUser> {
+
+  const response =
+    await apiFetch("/auth/me");
+
+  return response.json();
+}

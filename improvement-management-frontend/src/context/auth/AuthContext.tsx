@@ -1,5 +1,6 @@
 import {
   createContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -10,6 +11,10 @@ import type {
 import type {
   LoginUser,
 } from "../../types/auth";
+
+import {
+  getCurrentUser,
+} from "../../api/auth/authApi";
 
 type AuthContextType = {
 
@@ -23,6 +28,8 @@ type AuthContextType = {
     >;
 
   clearLoginUser: () => void;
+
+  isLoading: boolean;
 };
 
 export const AuthContext =
@@ -45,6 +52,37 @@ export function AuthProvider({
     null
   );
 
+  const [
+    isLoading,
+    setIsLoading,
+  ] = useState(true);
+
+  useEffect(() => {
+
+    const restoreLoginUser =
+      async () => {
+
+        try {
+
+          const user =
+            await getCurrentUser();
+
+          setLoginUser(user);
+
+        } catch {
+
+          setLoginUser(null);
+
+        } finally {
+
+          setIsLoading(false);
+        }
+      };
+
+    restoreLoginUser();
+
+  }, []);
+
   const clearLoginUser = () => {
     setLoginUser(null);
   };
@@ -55,6 +93,7 @@ export function AuthProvider({
         loginUser,
         setLoginUser,
         clearLoginUser,
+        isLoading,
       }}
     >
       {children}
